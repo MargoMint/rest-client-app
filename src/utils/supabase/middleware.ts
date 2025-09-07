@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
-import { getEnv } from '../env';
+import { getEnv } from '../getEnv';
+import { EnvVar } from '../env-vars';
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -8,15 +9,15 @@ export async function updateSession(request: NextRequest) {
   });
 
   const supabase = createServerClient(
-    getEnv('NEXT_PUBLIC_SUPABASE_URL'),
-    getEnv('NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY'),
+    getEnv(EnvVar.NEXT_PUBLIC_SUPABASE_URL),
+    getEnv(EnvVar.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY),
     {
       cookies: {
         getAll() {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options: _options }) =>
+          cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value),
           );
           supabaseResponse = NextResponse.next({
