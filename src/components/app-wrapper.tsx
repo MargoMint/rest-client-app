@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
-import Header from './Header-fix';
-import Footer from './Footer-fix';
+import Header from './header';
+import Footer from './footer';
 
 function AppWrapper({ children }: PropsWithChildren) {
   return (

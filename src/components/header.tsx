@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from './ui/button';
-import Typography from './Typography-fix';
+import Typography from './typography';
 
 function Header() {
   return (

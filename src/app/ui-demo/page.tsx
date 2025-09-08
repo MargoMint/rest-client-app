@@ -9,8 +9,8 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import Toast from './Toast-fix';
-import Typography from '@/components/Typography-fix';
+import Toast from './toast';
+import Typography from '@/components/typography';
 
 function UiDemoPage() {
   return (
