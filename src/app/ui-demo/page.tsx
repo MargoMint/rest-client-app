@@ -10,12 +10,15 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Toast from './Toast';
+import Typography from '@/components/Typography';
 
 function UiDemoPage() {
   return (
     <div className="flex flex-col gap-10 p-10">
       <div className="flex items-center gap-6">
-        <span className="w-32">Buttons:</span>
+        <Typography variant="body" className="w-32">
+          Buttons:
+        </Typography>
         <div className="flex items-center gap-4">
           <Button variant="default">Default</Button>
           <Button variant="disabled">Disabled</Button>
@@ -26,7 +29,9 @@ function UiDemoPage() {
       </div>
 
       <div className="flex items-center gap-6">
-        <span className="w-32">Select:</span>
+        <Typography variant="body" className="w-32">
+          Select:
+        </Typography>
         <Select>
           <SelectTrigger className="w-[120px]">
             <SelectValue placeholder="Method" />
@@ -41,7 +46,9 @@ function UiDemoPage() {
       </div>
 
       <div className="flex items-center gap-6">
-        <span className="w-32">Input + Button:</span>
+        <Typography variant="body" className="w-32">
+          Input + Button:
+        </Typography>
         <div className="flex max-w-sm items-center gap-2">
           <Input type="email" placeholder="Email" />
           <Button type="submit" variant="outline">
@@ -51,7 +58,9 @@ function UiDemoPage() {
       </div>
 
       <div className="flex items-center gap-6">
-        <span className="w-32">Tabs:</span>
+        <Typography variant="body" className="w-32">
+          Tabs:
+        </Typography>
         <Tabs>
           <TabsList>
             <TabsTrigger value="rest-client" asChild>
@@ -68,7 +77,9 @@ function UiDemoPage() {
       </div>
 
       <div className="flex items-start gap-6">
-        <span className="w-32">Toasts:</span>
+        <Typography variant="body" className="w-32">
+          Toasts:
+        </Typography>
         <Toast />
       </div>
     </div>
