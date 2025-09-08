@@ -23,7 +23,7 @@ function Header() {
           >
             <Link
               href="#"
-              className="text-[var(--destructive-dark)] hover:text-[var(--primary)]"
+              className="text-[var(--gray-400)] hover:text-[var(--primary)]"
             >
               RU
             </Link>

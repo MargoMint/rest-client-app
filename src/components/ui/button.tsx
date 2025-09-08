@@ -11,8 +11,8 @@ const buttonVariants = cva(
       variant: {
         default:
           'bg-[var(--primary)] text-white shadow hover:bg-[var(--primary)]/90',
-        destructive:
-          'bg-[var(--destructive)] text-[var(--destructive-dark)] shadow-sm hover:cursor-default',
+        disabled:
+          'bg-[var(--gray-100)] text-[var(--gray-400)] shadow-sm hover:cursor-default',
         outline:
           'border-2 border-[var(--primary)] text-[var(--primary)] bg-transparent hover:shadow-sm',
         ghost: 'hover:bg-[var(--primary)] hover:text-[var(--white)]',
