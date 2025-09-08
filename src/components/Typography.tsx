@@ -1,5 +1,5 @@
 import cn from '@/lib/utils';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ElementType } from 'react';
 
 type TypographyVariant = 'h1' | 'h2' | 'h3' | 'body' | 'caption';
 
@@ -8,12 +8,15 @@ interface TypographyProps {
   className?: string;
 }
 
-const variantStyles: Record<TypographyVariant, string> = {
-  h1: 'text-4xl font-bold',
-  h2: 'text-2xl font-bold',
-  h3: 'text-lg font-bold',
-  body: 'text-base font-normal',
-  caption: 'text-sm font-medium',
+const variantMap: Record<
+  TypographyVariant,
+  { element: ElementType; styles: string }
+> = {
+  h1: { element: 'h1', styles: 'text-4xl font-bold' },
+  h2: { element: 'h2', styles: 'text-2xl font-bold' },
+  h3: { element: 'h3', styles: 'text-lg font-bold' },
+  body: { element: 'p', styles: 'text-base font-normal' },
+  caption: { element: 'span', styles: 'text-sm font-medium' },
 };
 
 function Typography({
@@ -21,12 +24,9 @@ function Typography({
   className,
   children,
 }: PropsWithChildren<TypographyProps>) {
-  const Tag =
-    variant === 'body' ? 'p' : variant === 'caption' ? 'span' : variant;
+  const { element: Tag, styles } = variantMap[variant];
 
-  return (
-    <Tag className={cn(variantStyles[variant], className)}>{children}</Tag>
-  );
+  return <Tag className={cn(styles, className)}>{children}</Tag>;
 }
 
 export default Typography;
