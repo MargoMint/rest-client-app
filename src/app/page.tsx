@@ -1,6 +1,6 @@
 import AppWrapper from '@/components/app-wrapper';
 import Link from 'next/link';
-import Typography from '@/components/typography';
+import Typography from '@/components/Typography-fix';
 
 function Home() {
   return (

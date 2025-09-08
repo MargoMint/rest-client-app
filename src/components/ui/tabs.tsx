@@ -3,7 +3,7 @@
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import cn from '@/lib/utils';
 import { ComponentProps } from 'react';
-import Typography from '../typography';
+import Typography from '../Typography-fix';
 
 function Tabs({
   className,

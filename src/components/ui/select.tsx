@@ -3,7 +3,7 @@
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import { ComponentProps } from 'react';
-import Typography from '../typography';
+import Typography from '../Typography-fix';
 import cn from '@/lib/utils';
 
 function Select({ ...props }: ComponentProps<typeof SelectPrimitive.Root>) {

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Typography from './typography';
+import Typography from './Typography-fix';
 import footerLinks from '@/constants/footer-links';
 
 function Footer() {

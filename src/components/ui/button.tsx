@@ -1,6 +1,6 @@
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
-import Typography from '../typography';
+import Typography from '../Typography-fix';
 import cn from '@/lib/utils';
 import { ComponentProps } from 'react';
 
