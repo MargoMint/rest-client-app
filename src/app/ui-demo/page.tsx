@@ -18,7 +18,7 @@ function UiDemoPage() {
         <span className="w-32">Buttons:</span>
         <div className="flex items-center gap-4">
           <Button variant="default">Default</Button>
-          <Button variant="destructive">Destructive</Button>
+          <Button variant="disabled">Disabled</Button>
           <Button variant="outline">Outline</Button>
           <Button variant="ghost">Ghost</Button>
           <Button variant="link">Link</Button>
