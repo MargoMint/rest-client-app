@@ -1,5 +1,6 @@
 name: Deploy to Vercel
 
+
 on:
   push:
     branches:
@@ -7,6 +8,7 @@ on:
   pull_request:
     branches:
       - develop
+
 
 jobs:
   deploy:
