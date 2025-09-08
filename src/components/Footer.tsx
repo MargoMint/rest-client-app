@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Typography from './Typography';
+import footerLinks from '@/constants/footerLinks';
 
 function Footer() {
   return (
@@ -10,30 +11,17 @@ function Footer() {
         </Typography>
 
         <Typography variant="caption" className="flex gap-8 text-right">
-          <a
-            href="https://github.com/margomint"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[var(--dark)] hover:underline"
-          >
-            margomint
-          </a>
-          <a
-            href="https://github.com/elena-web"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[var(--dark)] hover:underline"
-          >
-            elena-web
-          </a>
-          <a
-            href="https://github.com/yuliyanaletskaya"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[var(--dark)] hover:underline"
-          >
-            yuliyanaletskaya
-          </a>
+          {footerLinks.map((link) => (
+            <a
+              key={link.nickname}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--dark)] hover:underline"
+            >
+              {link.nickname}
+            </a>
+          ))}
         </Typography>
 
         <a
