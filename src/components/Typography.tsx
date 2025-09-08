@@ -21,8 +21,11 @@ function Typography({
   className,
   children,
 }: PropsWithChildren<TypographyProps>) {
+  const Tag =
+    variant === 'body' ? 'p' : variant === 'caption' ? 'span' : variant;
+
   return (
-    <span className={cn(variantStyles[variant], className)}>{children}</span>
+    <Tag className={cn(variantStyles[variant], className)}>{children}</Tag>
   );
 }
 
