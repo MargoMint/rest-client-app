@@ -1,8 +1,8 @@
 import { PropsWithChildren } from 'react';
-import Header from './Header';
-import Footer from './Footer';
+import Header from './header';
+import Footer from './footer';
 
-function Layout({ children }: PropsWithChildren) {
+function AppWrapper({ children }: PropsWithChildren) {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -14,4 +14,4 @@ function Layout({ children }: PropsWithChildren) {
   );
 }
 
-export default Layout;
+export default AppWrapper;
