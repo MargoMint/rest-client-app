@@ -2,8 +2,19 @@
 
 :root {
   --font-montserrat: 'Montserrat', sans-serif;
+
+  --white: #fff;
+  --primary: #8c1007;
+  --dark: #1a1a1a;
+  --gray-100: #f2f2f2;
+  --gray-400: #c4c4c4;
 }
 
 body {
   font-family: var(--font-montserrat);
+}
+
+.Toastify__progress-bar {
+  background: linear-gradient(to right, var(--gray-100), var(--gray-400));
+  height: 4px !important;
 }
