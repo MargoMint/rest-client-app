@@ -7,7 +7,7 @@ export default function RegisterPage() {
   return (
     <Layout>
       <div className="flex h-full items-center justify-center">
-        <div className="h-[408px] w-[550px] self-center rounded-[20px] bg-[var(--white)] p-8 text-center shadow-[0px_0px_11.6px_5px_rgba(0,0,0,0.08)]">
+        <div className="flex h-[408px] w-[550px] flex-col self-center rounded-[20px] bg-[var(--white)] px-16 py-8 text-center shadow-[0px_0px_11.6px_5px_rgba(0,0,0,0.08)]">
           <Typography
             variant="h2"
             className="mb-6 text-center text-[var(--primary)]"

@@ -85,7 +85,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-4"
+        className="flex flex-col gap-8"
       >
         <FormField
           control={form.control}
