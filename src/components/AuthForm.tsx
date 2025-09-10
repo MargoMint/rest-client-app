@@ -1,9 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { z } from 'zod';
-import { createClient } from '@/utils/supabase/client';
-import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -16,69 +13,26 @@ import {
 } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { registerSchema } from '@/validation/auth';
+import { submitAuth } from '@/lib/auth-handlers';
+import type { AuthForm } from '@/lib/auth-handlers';
 
 type AuthFormProps = {
-  mode: 'register' | 'login';
+  mode: AuthForm;
 };
-
-const schema = z.object({
-  email: z.string().email({ message: 'Invalid email format' }),
-  password: z
-    .string()
-    .min(8, { message: 'Minimum 8 characters' })
-    .regex(/^[\p{L}\p{N}\p{P}\p{S}]+$/u, {
-      message: 'Password must support Unicode',
-    }),
-});
 
 export default function AuthForm({ mode }: AuthFormProps) {
   const router = useRouter();
-  const supabase = createClient();
+  const schema = registerSchema;
 
-  const form = useForm<z.infer<typeof schema>>({
+  const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: { email: '', password: '' },
+    mode: 'onChange',
   });
 
-  const handleSupabaseError = (message: string) => {
-    const msg = message.toLowerCase();
-
-    if (msg.includes('invalid login')) {
-      form.setError('password', { message: 'Incorrect email or password' });
-    } else if (
-      msg.includes('already registered') ||
-      msg.includes('user already exists')
-    ) {
-      form.setError('email', { message: 'User already registered' });
-    } else if (msg.includes('password')) {
-      form.setError('password', { message });
-    } else {
-      toast.error(message);
-    }
-  };
-
-  const onSubmit = async (values: z.infer<typeof schema>) => {
-    const { email, password } = values;
-
-    const { data, error } =
-      mode === 'register'
-        ? await supabase.auth.signUp({ email, password })
-        : await supabase.auth.signInWithPassword({ email, password });
-
-    if (error) {
-      handleSupabaseError(error.message);
-      return;
-    }
-
-    const token = data.session?.access_token;
-    const expires = data.session?.expires_in;
-    console.log('Access token:', token);
-    console.log('Expires in:', expires);
-
-    toast.success(
-      mode === 'register' ? 'Successful registration' : 'Login done',
-    );
-    router.push('/');
+  const onSubmit = async (values: { email: string; password: string }) => {
+    submitAuth(mode, values, form, router);
   };
 
   return (
@@ -96,7 +50,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
               <FormControl>
                 <Input type="email" placeholder="Enter your email" {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-sm text-red-500" />
             </FormItem>
           )}
         />
@@ -113,7 +67,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-sm text-red-500" />
             </FormItem>
           )}
         />
