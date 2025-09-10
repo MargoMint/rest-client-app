@@ -1,4 +1,4 @@
-import teamMembers from '@/constants/team-data';
+import TEAM_MEMBERS from '@/constants/team-data';
 import Image from 'next/image';
 import Typography from './typography';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
@@ -16,7 +16,7 @@ function Team() {
       </div>
 
       <div className="space-y-14">
-        {teamMembers.map((member) => (
+        {TEAM_MEMBERS.map((member) => (
           <div
             key={member.github}
             className="flex flex-col items-center gap-4 md:flex-row md:gap-10"

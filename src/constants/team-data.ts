@@ -1,4 +1,4 @@
-const teamMembers = [
+const TEAM_MEMBERS = [
   {
     name: 'Marharyta Shyshkavets',
     bio: 'Marharyta Shyshkavets is an aspiring frontend developer with a strong eye for detail and a passion for creating clean, responsive interfaces. Over the past year, she has been exploring web development, focusing on layout, styling, and building user-friendly designs. She enjoys working in collaborative environments, values open communication, and believes teamwork helps her bring out the best in her work.',
@@ -22,4 +22,4 @@ const teamMembers = [
   },
 ];
 
-export default teamMembers;
+export default TEAM_MEMBERS;
