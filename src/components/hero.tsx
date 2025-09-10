@@ -10,12 +10,12 @@ function Hero() {
           <AboutSection
             title={ABOUT_TEXTS.project.title}
             body={ABOUT_TEXTS.project.body}
-            align="left"
+            variant="left"
           />
           <AboutSection
             title={ABOUT_TEXTS.course.title}
             body={ABOUT_TEXTS.course.body}
-            align="right"
+            variant="right"
           />
         </div>
       </section>

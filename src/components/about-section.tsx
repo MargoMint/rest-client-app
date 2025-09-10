@@ -1,18 +1,25 @@
 import Typography from '@/components/typography';
+import cn from '@/lib/utils';
+
+type AboutSectionAlignVariant = 'left' | 'right';
 
 interface AboutSectionProps {
   title: string;
   body: string;
-  align: 'left' | 'right';
+  variant: AboutSectionAlignVariant;
 }
 
-function AboutSection({ title, body, align }: AboutSectionProps) {
-  const alignmentClasses =
-    align === 'left' ? 'self-start text-left' : 'self-end text-right';
+const variantMap: Record<AboutSectionAlignVariant, { styles: string }> = {
+  left: { styles: 'self-start text-left' },
+  right: { styles: 'self-end text-right' },
+};
+
+function AboutSection({ title, body, variant }: AboutSectionProps) {
+  const { styles } = variantMap[variant];
 
   return (
     <div
-      className={`flex max-w-[850px] flex-col justify-center gap-4 ${alignmentClasses}`}
+      className={cn('flex max-w-[850px] flex-col justify-center gap-4', styles)}
     >
       <Typography
         variant="h3"
