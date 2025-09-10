@@ -9,13 +9,13 @@ interface AboutSectionProps {
   variant: AboutSectionAlignVariant;
 }
 
-const variantMap: Record<AboutSectionAlignVariant, { styles: string }> = {
-  left: { styles: 'self-start text-left' },
-  right: { styles: 'self-end text-right' },
+const variantMap: Record<AboutSectionAlignVariant, string> = {
+  left: 'self-start text-left',
+  right: 'self-end text-right',
 };
 
 function AboutSection({ title, body, variant }: AboutSectionProps) {
-  const { styles } = variantMap[variant];
+  const styles = variantMap[variant];
 
   return (
     <div
