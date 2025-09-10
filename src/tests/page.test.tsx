@@ -1,19 +1,54 @@
 import Home from '@/app/page';
 import { render, screen } from '@testing-library/react';
 
-jest.mock('next/router', () => ({
-  useRouter: jest.fn(),
-}));
-
 describe('Home', () => {
-  it('renders link to UI demo page', () => {
+  test('renders Hero section', () => {
     render(<Home />);
+    expect(
+      screen.getByRole('heading', { name: /About the project/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /About the course/i }),
+    ).toBeInTheDocument();
+  });
 
-    const linkElement = screen.getByText(/To UI demo page/i);
-    expect(linkElement).toBeInTheDocument();
+  test('renders Team section', () => {
+    render(<Home />);
+    expect(screen.getByText(/Our team/i)).toBeInTheDocument();
 
     expect(
-      screen.getByRole('link', { name: 'To UI demo page' }),
-    ).toHaveAttribute('href', '/ui-demo');
+      screen.getByRole('heading', { name: /Get to know us/i }),
+    ).toBeInTheDocument();
+  });
+
+  test('renders team members with GitHub and LinkedIn links', () => {
+    render(<Home />);
+    const linkedinLinks = screen.getAllByRole('link', { name: /LinkedIn -/i });
+    expect(linkedinLinks.length).toBeGreaterThan(0);
+
+    linkedinLinks.forEach((link) =>
+      expect(link).toHaveAttribute('href', expect.stringContaining('https://')),
+    );
+
+    const githubLinks = screen.getAllByRole('link', { name: /GitHub -/i });
+    expect(githubLinks.length).toBeGreaterThan(0);
+
+    githubLinks.forEach((link) =>
+      expect(link).toHaveAttribute(
+        'href',
+        expect.stringContaining('https://github.com'),
+      ),
+    );
+  });
+
+  test('renders team members images', () => {
+    render(<Home />);
+    const images = screen.getAllByRole('img');
+    expect(images.length).toBeGreaterThan(0);
+
+    images.forEach((img) => {
+      expect(img).toHaveAttribute('alt');
+      expect(img.getAttribute('alt')).not.toBe('');
+    });
   });
 });
