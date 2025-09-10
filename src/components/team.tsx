@@ -16,9 +16,9 @@ function Team() {
       </div>
 
       <div className="space-y-14">
-        {teamMembers.map((member, index) => (
+        {teamMembers.map((member) => (
           <div
-            key={index}
+            key={member.github}
             className="flex flex-col items-center gap-4 md:flex-row md:gap-10"
           >
             <div className="flex-shrink-0">
