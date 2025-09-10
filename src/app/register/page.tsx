@@ -3,7 +3,6 @@ import AuthForm from '@/components/AuthForm';
 import Typography from '@/components/typography';
 
 export default function RegisterPage() {
-  console.log('SUPABASE_URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
   return (
     <AppWrapper>
       <div className="flex h-full items-center justify-center">

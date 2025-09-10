@@ -37,7 +37,7 @@ export const submitAuth = async (
 ) => {
   const supabase = createClient();
   const { email, password } = values;
-  const { data, error } =
+  const { error } =
     mode === 'register'
       ? await supabase.auth.signUp({ email, password })
       : await supabase.auth.signInWithPassword({ email, password });
@@ -46,9 +46,6 @@ export const submitAuth = async (
     handleSupabaseError(form, error.message);
     return;
   }
-
-  const token = data.session?.access_token;
-  console.log('Access token:', token);
 
   toast.success(mode === 'register' ? 'Successful registration' : 'Login done');
   router.push('/');
