@@ -39,7 +39,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-8"
+        className="flex flex-col gap-4"
       >
         <FormField
           control={form.control}
@@ -50,7 +50,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
               <FormControl>
                 <Input type="email" placeholder="Enter your email" {...field} />
               </FormControl>
-              <FormMessage className="text-sm text-red-500" />
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -67,7 +67,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="text-sm text-red-500" />
+              <FormMessage />
             </FormItem>
           )}
         />
