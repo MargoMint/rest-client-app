@@ -2,26 +2,19 @@
 
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema } from '@/validation/auth-schemes';
 import { submitAuth } from '@/lib/auth-handlers';
-import type { AuthForm } from '@/lib/auth-handlers';
+import type { AuthFormType } from '@/lib/auth-handlers';
+import AuthField from './auth-field';
 
 type AuthFormProps = {
-  mode: AuthForm;
+  mode: AuthFormType;
 };
 
-export default function AuthForm({ mode }: AuthFormProps) {
+function AuthForm({ mode }: AuthFormProps) {
   const router = useRouter();
   const schema = registerSchema;
 
@@ -41,35 +34,19 @@ export default function AuthForm({ mode }: AuthFormProps) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-4"
       >
-        <FormField
-          control={form.control}
+        <AuthField
           name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="Enter your email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
+          label="Email"
+          type="email"
+          placeholder="Enter your email"
           control={form.control}
+        />
+        <AuthField
           name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder="Enter your password"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Password"
+          type="password"
+          placeholder="Enter your password"
+          control={form.control}
         />
         <Button type="submit" variant="default">
           {mode === 'register' ? 'Sign Up' : 'Sign In'}
@@ -78,3 +55,5 @@ export default function AuthForm({ mode }: AuthFormProps) {
     </Form>
   );
 }
+
+export default AuthForm;

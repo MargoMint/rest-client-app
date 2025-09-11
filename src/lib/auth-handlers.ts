@@ -5,45 +5,27 @@ import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import z from 'zod';
 
-export type AuthForm = 'register' | 'login';
+export type AuthFormType = 'register' | 'login';
 
-type RegisterValues = z.infer<typeof registerSchema>;
-
-export const handleSupabaseError = (
-  form: UseFormReturn<RegisterValues>,
-  message: string,
-) => {
-  const msg = message.toLowerCase();
-
-  if (msg.includes('invalid login')) {
-    form.setError('password', { message: 'Incorrect email or password' });
-  } else if (
-    msg.includes('already registered') ||
-    msg.includes('user already exists')
-  ) {
-    form.setError('email', { message: 'User already registered' });
-  } else if (msg.includes('password')) {
-    form.setError('password', { message });
-  } else {
-    toast.error(message);
-  }
-};
+export type RegisterValues = z.infer<typeof registerSchema>;
 
 export const submitAuth = async (
-  mode: AuthForm,
+  mode: AuthFormType,
   values: RegisterValues,
   form: UseFormReturn<RegisterValues>,
   router: AppRouterInstance,
 ) => {
   const supabase = createClient();
   const { email, password } = values;
+
   const { error } =
     mode === 'register'
       ? await supabase.auth.signUp({ email, password })
       : await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    handleSupabaseError(form, error.message);
+    form.setError('email', { message: error.message });
+    toast.error(error.message);
     return;
   }
 
