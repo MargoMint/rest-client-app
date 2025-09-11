@@ -1,0 +1,19 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+
+function useStickyHeader(offset = 70) {
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsSticky(window.scrollY > offset);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [offset]);
+
+  return isSticky;
+}
+
+export default useStickyHeader;
