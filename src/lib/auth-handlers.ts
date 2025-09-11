@@ -1,5 +1,5 @@
 import { createClient } from '@/utils/supabase/client';
-import { registerSchema } from '@/validation/auth';
+import { registerSchema } from '@/validation/auth-schemes';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'react-toastify';

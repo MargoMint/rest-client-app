@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema } from '@/validation/auth';
+import { registerSchema } from '@/validation/auth-schemes';
 import { submitAuth } from '@/lib/auth-handlers';
 import type { AuthForm } from '@/lib/auth-handlers';
 
