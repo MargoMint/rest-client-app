@@ -142,10 +142,6 @@ function FormMessage({ ...props }: ComponentProps<'p'>) {
   const { error, formMessageId } = useFormField();
   const body = error?.message ?? props.children;
 
-  // if (!body) {
-  //   return null;
-  // }
-
   return (
     <Typography
       variant="caption"
