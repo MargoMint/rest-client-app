@@ -33,7 +33,9 @@ function Header() {
             </Link>
           </Typography>
           <div className="flex items-center gap-4">
-            <Button variant="default">Sign In</Button>
+            <Link href="/login">
+              <Button variant="default">Sign In</Button>
+            </Link>
             <Link href="/register">
               <Button variant="default">Sign Up</Button>
             </Link>

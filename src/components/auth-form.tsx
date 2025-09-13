@@ -53,9 +53,15 @@ function AuthForm({ mode }: AuthFormProps) {
           placeholder="Enter your password"
           control={form.control}
         />
-        <Button type="submit" variant="default">
-          {mode === 'register' ? 'Sign Up' : 'Sign In'}
-        </Button>
+        <div>
+          <Button
+            type="submit"
+            variant="default"
+            disabled={!form.formState.isValid}
+          >
+            {mode === 'register' ? 'Sign Up' : 'Sign In'}
+          </Button>
+        </div>
       </form>
     </Form>
   );
