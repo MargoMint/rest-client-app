@@ -3,6 +3,10 @@ import Home from '@/app/page';
 import RegisterPage from '@/app/register/page';
 import { render, screen } from '@testing-library/react';
 
+jest.mock('@/lib/auth/get-current-user', () => ({
+  getCurrentUser: jest.fn(() => Promise.resolve(null)),
+}));
+
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
     push: jest.fn(),
@@ -15,8 +19,9 @@ jest.mock('next/navigation', () => ({
 }));
 
 describe('Home', () => {
-  test('renders Hero section', () => {
-    render(<Home />);
+  test('renders Hero section', async () => {
+    const Component = await Home();
+    render(Component);
     expect(
       screen.getByRole('heading', { name: /About the project/i }),
     ).toBeInTheDocument();
@@ -25,8 +30,9 @@ describe('Home', () => {
     ).toBeInTheDocument();
   });
 
-  test('renders Team section', () => {
-    render(<Home />);
+  test('renders Team section', async () => {
+    const Component = await Home();
+    render(Component);
     expect(screen.getByText(/Our team/i)).toBeInTheDocument();
 
     expect(
@@ -34,8 +40,9 @@ describe('Home', () => {
     ).toBeInTheDocument();
   });
 
-  test('renders team members with GitHub and LinkedIn links', () => {
-    render(<Home />);
+  test('renders team members with GitHub and LinkedIn links', async () => {
+    const Component = await Home();
+    render(Component);
     const linkedinLinks = screen.getAllByRole('link', { name: /LinkedIn -/i });
     expect(linkedinLinks.length).toBeGreaterThan(0);
 
@@ -54,8 +61,9 @@ describe('Home', () => {
     );
   });
 
-  test('renders team members images', () => {
-    render(<Home />);
+  test('renders team members images', async () => {
+    const Component = await Home();
+    render(Component);
     const images = screen.getAllByRole('img');
     expect(images.length).toBeGreaterThan(0);
 
@@ -67,8 +75,9 @@ describe('Home', () => {
 });
 
 describe('LoginPage', () => {
-  test('renders login form and heading', () => {
-    render(<LoginPage />);
+  test('renders login form and heading', async () => {
+    const Component = await LoginPage();
+    render(Component);
     expect(
       screen.getByRole('heading', { name: /welcome/i }),
     ).toBeInTheDocument();
@@ -82,8 +91,9 @@ describe('LoginPage', () => {
 });
 
 describe('RegisterPage', () => {
-  test('renders registration form and heading', () => {
-    render(<RegisterPage />);
+  test('renders registration form and heading', async () => {
+    const Component = await RegisterPage();
+    render(Component);
     expect(
       screen.getByRole('heading', { name: /create|welcome/i }),
     ).toBeInTheDocument();
