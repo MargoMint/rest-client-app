@@ -1,7 +1,7 @@
 import AuthPageLayout from '@/components/auth-page-layout';
 
 function LoginPage() {
-  return <AuthPageLayout mode="login" title="Welcome to REST Client" />;
+  return <AuthPageLayout mode="login" />;
 }
 
 export default LoginPage;

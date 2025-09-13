@@ -4,12 +4,14 @@ import Typography from '@/components/typography';
 import { AuthFormType } from '@/lib/auth-handlers';
 import AuthSwitchLink from './auth-switch-link';
 
-type AuthPageProps = {
-  mode: AuthFormType;
-  title: string;
-};
+function AuthPageLayout({ mode }: { mode: AuthFormType }) {
+  const titleMap: Record<AuthFormType, string> = {
+    login: 'Welcome to REST Client',
+    register: 'Create your account',
+  };
 
-function AuthPageLayout({ mode, title }: AuthPageProps) {
+  const title = titleMap[mode];
+
   return (
     <AppWrapper>
       <div className="flex h-full items-center justify-center">
