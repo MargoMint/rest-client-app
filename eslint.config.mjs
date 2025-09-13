@@ -54,6 +54,7 @@ export default tseslint.config(
         'warn',
         { argsIgnorePattern: '^_' },
       ],
+      '@next/next/no-page-custom-font': 'off',
     },
     settings: {
       react: {
