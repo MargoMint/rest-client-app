@@ -6,12 +6,12 @@ import { Form } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, registerSchema } from '@/validation/auth-schemes';
-import { submitAuth } from '@/lib/auth-handlers';
+import { submitAuth } from '@/lib/auth/auth-handlers';
 import type {
   AuthFormType,
   LoginValues,
   RegisterValues,
-} from '@/lib/auth-handlers';
+} from '@/lib/auth/auth-handlers';
 import AuthField from './auth-field';
 
 type AuthFormProps = {

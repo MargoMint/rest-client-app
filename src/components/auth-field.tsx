@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Control } from 'react-hook-form';
-import { LoginValues, RegisterValues } from '@/lib/auth-handlers';
+import { LoginValues, RegisterValues } from '@/lib/auth/auth-handlers';
 
 type AuthValues = RegisterValues | LoginValues;
 

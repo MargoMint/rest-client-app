@@ -1,5 +1,5 @@
 import Typography from '@/components/typography';
-import { AuthFormType } from '@/lib/auth-handlers';
+import { AuthFormType } from '@/lib/auth/auth-handlers';
 import Link from 'next/link';
 import { Button } from './ui/button';
 

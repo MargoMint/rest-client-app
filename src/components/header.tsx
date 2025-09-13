@@ -2,8 +2,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from './ui/button';
 import Typography from './typography';
+import { User } from '@supabase/supabase-js';
 
-function Header() {
+type HeaderProps = {
+  user: User | null;
+};
+
+function Header({ user }: HeaderProps) {
+  const isAuthenticated = !!user;
+
   return (
     <header className="w-full rounded-b-xl border-b-3 border-[var(--primary)] py-2">
       <div className="mx-auto flex max-w-[1200px] items-center justify-between px-4">
@@ -33,12 +40,22 @@ function Header() {
             </Link>
           </Typography>
           <div className="flex items-center gap-4">
-            <Link href="/login">
-              <Button variant="default">Sign In</Button>
-            </Link>
-            <Link href="/register">
-              <Button variant="default">Sign Up</Button>
-            </Link>
+            {isAuthenticated ? (
+              <form action="/api/logout" method="POST">
+                <Button type="submit" variant="default">
+                  Sign Out
+                </Button>
+              </form>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="default">Sign In</Button>
+                </Link>
+                <Link href="/register">
+                  <Button variant="default">Sign Up</Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
