@@ -1,5 +1,18 @@
+import LoginPage from '@/app/login/page';
 import Home from '@/app/page';
+import RegisterPage from '@/app/register/page';
 import { render, screen } from '@testing-library/react';
+
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+    refresh: jest.fn(),
+    back: jest.fn(),
+    forward: jest.fn(),
+    prefetch: jest.fn(),
+  }),
+}));
 
 describe('Home', () => {
   test('renders Hero section', () => {
@@ -50,5 +63,35 @@ describe('Home', () => {
       expect(img).toHaveAttribute('alt');
       expect(img.getAttribute('alt')).not.toBe('');
     });
+  });
+});
+
+describe('LoginPage', () => {
+  test('renders login form and heading', () => {
+    render(<LoginPage />);
+    expect(
+      screen.getByRole('heading', { name: /welcome/i }),
+    ).toBeInTheDocument();
+
+    const buttons = screen.getAllByRole('button', { name: /sign in/i });
+    const submitButton = buttons.find(
+      (btn) => btn.getAttribute('type') === 'submit',
+    );
+    expect(submitButton).toBeInTheDocument();
+  });
+});
+
+describe('RegisterPage', () => {
+  test('renders registration form and heading', () => {
+    render(<RegisterPage />);
+    expect(
+      screen.getByRole('heading', { name: /create|welcome/i }),
+    ).toBeInTheDocument();
+
+    const buttons = screen.getAllByRole('button', { name: /sign up/i });
+    const submitButton = buttons.find(
+      (btn) => btn.getAttribute('type') === 'submit',
+    );
+    expect(submitButton).toBeInTheDocument();
   });
 });
