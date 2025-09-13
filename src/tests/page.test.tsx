@@ -1,19 +1,26 @@
-import Home from '@/app/page';
 import { render, screen } from '@testing-library/react';
+import Home from '@/app/page';
+
+jest.mock('@/utils/supabase/get-current-user', () => ({
+  getCurrentUser: jest.fn(() => Promise.resolve(null)),
+}));
 
 describe('Home', () => {
-  test('renders Hero section', () => {
-    render(<Home />);
+  test('renders Hero section', async () => {
+    render(await Home());
+
     expect(
       screen.getByRole('heading', { name: /About the project/i }),
     ).toBeInTheDocument();
+
     expect(
       screen.getByRole('heading', { name: /About the course/i }),
     ).toBeInTheDocument();
   });
 
-  test('renders Team section', () => {
-    render(<Home />);
+  test('renders Team section', async () => {
+    render(await Home());
+
     expect(screen.getByText(/Our team/i)).toBeInTheDocument();
 
     expect(
@@ -21,8 +28,9 @@ describe('Home', () => {
     ).toBeInTheDocument();
   });
 
-  test('renders team members with GitHub and LinkedIn links', () => {
-    render(<Home />);
+  test('renders team members with GitHub and LinkedIn links', async () => {
+    render(await Home());
+
     const linkedinLinks = screen.getAllByRole('link', { name: /LinkedIn -/i });
     expect(linkedinLinks.length).toBeGreaterThan(0);
 
@@ -41,8 +49,9 @@ describe('Home', () => {
     );
   });
 
-  test('renders team members images', () => {
-    render(<Home />);
+  test('renders team members images', async () => {
+    render(await Home());
+
     const images = screen.getAllByRole('img');
     expect(images.length).toBeGreaterThan(0);
 
