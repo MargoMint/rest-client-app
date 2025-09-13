@@ -7,6 +7,7 @@ import Typography from './typography';
 import useStickyHeader from '@/hooks/use-sticky-header';
 import cn from '@/lib/utils';
 import { User } from '@supabase/supabase-js';
+import LanguageSwitcher from './language-switcher';
 
 type HeaderProps = {
   user: User | null;
@@ -35,21 +36,7 @@ function Header({ user }: HeaderProps) {
         </div>
 
         <div className="flex items-center gap-4">
-          <Typography
-            variant="caption"
-            className="flex gap-2 text-[var(--primary)]"
-          >
-            <Link
-              href="#"
-              className="text-[var(--gray-400)] hover:text-[var(--primary)]"
-            >
-              RU
-            </Link>
-            |
-            <Link href="#" className="text-[var(--primary)]">
-              EN
-            </Link>
-          </Typography>
+          <LanguageSwitcher />
           <div className="flex items-center gap-4">
             {isAuthenticated ? (
               <form action="/api/logout" method="POST">

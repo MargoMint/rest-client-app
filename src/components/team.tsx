@@ -1,17 +1,22 @@
+'use client';
+
 import TEAM_MEMBERS from '@/constants/team-data';
 import Image from 'next/image';
 import Typography from './typography';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { useTranslations } from 'next-intl';
 
 function Team() {
+  const t = useTranslations('Team');
+
   return (
     <section>
       <div className="mb-8 text-center">
         <Typography variant="body" className="uppercase">
-          Our team
+          {t('teamTitle')}
         </Typography>
         <Typography variant="h3" className="text-[var(--primary)] capitalize">
-          Get to know us
+          {t('teamSubtitle')}
         </Typography>
       </div>
 
@@ -24,7 +29,7 @@ function Team() {
             <div className="flex-shrink-0">
               <Image
                 src={member.image}
-                alt={member.name}
+                alt={t(`${member.id}.name`)}
                 width={160}
                 height={160}
                 className="rounded-full object-cover"
@@ -33,17 +38,17 @@ function Team() {
 
             <div className="flex-1 text-center md:text-left">
               <Typography variant="h3" className="uppercase">
-                {member.name}
+                {t(`${member.id}.name`)}
               </Typography>
 
               <Typography variant="body" className="mt-2">
-                {member.bio}
+                {t(`${member.id}.bio`)}
               </Typography>
 
               <div className="mt-2 flex justify-center gap-2 md:justify-start">
                 <a
                   href={member.linkedin}
-                  aria-label={`LinkedIn - ${member.name}`}
+                  aria-label={`LinkedIn - ${t(`${member.id}.name`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[var(--dark)] transition hover:text-[var(--primary)]"
@@ -52,7 +57,7 @@ function Team() {
                 </a>
                 <a
                   href={member.github}
-                  aria-label={`GitHub - ${member.name}`}
+                  aria-label={`GitHub - ${t(`${member.id}.name`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[var(--dark)] transition hover:text-[var(--primary)]"
