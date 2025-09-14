@@ -5,9 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema } from '@/validation/auth-schemes';
+import { loginSchema, registerSchema } from '@/validation/auth-schemes';
 import { submitAuth } from '@/lib/auth-handlers';
-import type { AuthFormType } from '@/lib/auth-handlers';
+import type {
+  AuthFormType,
+  LoginValues,
+  RegisterValues,
+} from '@/lib/auth-handlers';
 import AuthField from './auth-field';
 
 type AuthFormProps = {
@@ -16,15 +20,16 @@ type AuthFormProps = {
 
 function AuthForm({ mode }: AuthFormProps) {
   const router = useRouter();
-  const schema = registerSchema;
+  const schema = mode === 'register' ? registerSchema : loginSchema;
+  const validationMode = mode === 'register' ? 'onChange' : 'onSubmit';
 
-  const form = useForm({
+  const form = useForm<RegisterValues | LoginValues>({
     resolver: zodResolver(schema),
     defaultValues: { email: '', password: '' },
-    mode: 'onChange',
+    mode: validationMode,
   });
 
-  const onSubmit = async (values: { email: string; password: string }) => {
+  const onSubmit = async (values: RegisterValues | LoginValues) => {
     submitAuth(mode, values, form, router);
   };
 
@@ -48,9 +53,15 @@ function AuthForm({ mode }: AuthFormProps) {
           placeholder="Enter your password"
           control={form.control}
         />
-        <Button type="submit" variant="default">
-          {mode === 'register' ? 'Sign Up' : 'Sign In'}
-        </Button>
+        <div>
+          <Button
+            type="submit"
+            variant="default"
+            disabled={!form.formState.isValid}
+          >
+            {mode === 'register' ? 'Sign Up' : 'Sign In'}
+          </Button>
+        </div>
       </form>
     </Form>
   );

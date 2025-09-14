@@ -9,14 +9,16 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Control } from 'react-hook-form';
-import { RegisterValues } from '@/lib/auth-handlers';
+import { LoginValues, RegisterValues } from '@/lib/auth-handlers';
+
+type AuthValues = RegisterValues | LoginValues;
 
 type Props = {
-  name: keyof RegisterValues;
+  name: keyof AuthValues;
   label: string;
   placeholder: string;
   type: 'email' | 'password';
-  control: Control<RegisterValues>;
+  control: Control<AuthValues>;
 };
 
 function AuthField({ name, label, placeholder, type, control }: Props) {

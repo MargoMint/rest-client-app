@@ -1,7 +1,7 @@
 import z from 'zod';
 
 export const registerSchema = z.object({
-  email: z.string().email({ message: 'Invalid email format' }),
+  email: z.email({ message: 'Invalid email format' }),
   password: z
     .string()
     .min(8, { message: 'Minimum 8 characters' })
@@ -17,4 +17,9 @@ export const registerSchema = z.object({
     .refine((val) => /^[\p{L}\p{N}\p{P}\p{S}]+$/u.test(val), {
       message: 'Password must support Unicode',
     }),
+});
+
+export const loginSchema = z.object({
+  email: z.email({ message: 'Invalid email format' }),
+  password: z.string().min(1, { message: 'Password is required' }),
 });
