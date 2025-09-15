@@ -2,13 +2,22 @@
 
 import { useState, useEffect } from 'react';
 
-function useStickyHeader(offset = 70) {
+const STICKY_HEADER_OFFSET = 70;
+
+function useStickyHeader(offset = STICKY_HEADER_OFFSET) {
   const [isSticky, setIsSticky] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsSticky(window.scrollY > offset);
+      const shouldBeSticky = window.scrollY > offset;
+      setIsSticky((prev) => {
+        if (prev !== shouldBeSticky) {
+          return shouldBeSticky;
+        }
+        return prev;
+      });
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [offset]);
