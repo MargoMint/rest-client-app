@@ -5,7 +5,7 @@ import AboutSection from '@/components/about-section';
 import { useTranslations } from 'next-intl';
 
 function Hero() {
-  const t = useTranslations('HomePage');
+  const t = useTranslations('homePage');
 
   return (
     <div>

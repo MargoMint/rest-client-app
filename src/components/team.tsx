@@ -7,7 +7,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
 
 function Team() {
-  const t = useTranslations('Team');
+  const t = useTranslations('team');
 
   return (
     <section>
