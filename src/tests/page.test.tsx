@@ -1,4 +1,4 @@
-import LoginPage from '@/app/login/page';
+import LoginPage from '@/app/[locale]/login/page';
 import Home from '@/app/[locale]/page';
 import RegisterPage from '@/app/[locale]/register/page';
 import { render, screen } from '@testing-library/react';
