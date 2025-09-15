@@ -13,7 +13,7 @@ export type LoginValues = z.infer<typeof loginSchema>;
 export const submitAuth = async (
   mode: AuthFormType,
   values: RegisterValues | LoginValues,
-  form: UseFormReturn<RegisterValues>,
+  form: UseFormReturn<RegisterValues | LoginValues>,
   router: AppRouterInstance,
 ) => {
   const supabase = createClient();
