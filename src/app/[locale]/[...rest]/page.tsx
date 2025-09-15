@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
 
-export default function CatchAll() {
+function CatchAll() {
   notFound();
 }
+
+export default CatchAll;
