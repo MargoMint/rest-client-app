@@ -8,5 +8,5 @@ export async function getCurrentUser(): Promise<User | null> {
     data: { user },
   } = await supabase.auth.getUser();
 
-  return user ?? null;
+  return user;
 }
