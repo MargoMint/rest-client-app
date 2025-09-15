@@ -13,7 +13,7 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-const signInWithPasswordMock = jest
+const mockSignInWithPassword = jest
   .fn()
   .mockResolvedValue({ data: {}, error: null });
 
@@ -21,7 +21,7 @@ jest.mock('@/utils/supabase/client', () => ({
   createClient: () => ({
     auth: {
       signUp: jest.fn().mockResolvedValue({ data: {}, error: null }),
-      signInWithPassword: signInWithPasswordMock,
+      signInWithPassword: mockSignInWithPassword,
     },
   }),
 }));
@@ -84,7 +84,7 @@ describe('AuthForm (login mode)', () => {
     await userEvent.type(screen.getByLabelText(/password/i), password);
     await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
 
-    expect(signInWithPasswordMock).toHaveBeenCalledWith({
+    expect(mockSignInWithPassword).toHaveBeenCalledWith({
       email,
       password,
     });

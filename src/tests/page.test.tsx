@@ -1,6 +1,6 @@
 import LoginPage from '@/app/login/page';
 import Home from '@/app/[locale]/page';
-import RegisterPage from '@/app/register/page';
+import RegisterPage from '@/app/[locale]/register/page';
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import messages from '../../messages/en.json';
