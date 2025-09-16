@@ -25,12 +25,41 @@
     "signIn": "Sign In",
     "signUp": "Sign Up"
   },
-  "form": {
-    "formTitle": "Welcome to REST Client"
-  },
   "notFoundPage": {
     "title": "404 Not Found",
     "mainMessage": "Oops, there is no such page",
     "back": "Back to home"
+  },
+  "auth": {
+    "login": {
+      "formTitle": "Welcome to REST Client",
+      "label": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "placeholder": {
+        "email": "Enter your email",
+        "password": "Enter your password"
+      },
+      "switch": {
+        "textLink": "Don’t have an account?",
+        "linkForm": "Sign Up"
+      }
+    },
+    "register": {
+      "formTitle": "Create your account",
+      "label": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "placeholder": {
+        "email": "Your email address",
+        "password": "Create a password"
+      },
+      "switch": {
+        "textLink": "Already have an account?",
+        "linkForm": "Sign In"
+      }
+    }
   }
 }

@@ -25,12 +25,41 @@
     "signIn": "Войти",
     "signUp": "Зарегистрироваться"
   },
-  "form": {
-    "formTitle": "Добро пожаловать в REST Client"
-  },
   "notFoundPage": {
     "title": "404 Страница не найдена",
     "mainMessage": "К сожалению, такой страницы не существует",
     "back": "На главную"
+  },
+  "auth": {
+    "login": {
+      "formTitle": "Добро пожаловать в REST Client",
+      "label": {
+        "email": "Электронная почта",
+        "password": "Пароль"
+      },
+      "placeholder": {
+        "email": "Введите вашу электронную почту",
+        "password": "Введите ваш пароль"
+      },
+      "switch": {
+        "textLink": "Нет аккаунта?",
+        "linkForm": "Зарегистрироваться"
+      }
+    },
+    "register": {
+      "formTitle": "Создайте аккаунт",
+      "label": {
+        "email": "Электронная почта",
+        "password": "Пароль"
+      },
+      "placeholder": {
+        "email": "Ваш адрес электронной почты",
+        "password": "Придумайте пароль"
+      },
+      "switch": {
+        "textLink": "Уже есть аккаунт?",
+        "linkForm": "Войти"
+      }
+    }
   }
 }

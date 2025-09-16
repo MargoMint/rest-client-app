@@ -1,28 +1,25 @@
+'use client';
+
 import Typography from '@/components/typography';
 import { AuthFormType } from '@/lib/auth/auth-handlers';
-import Link from 'next/link';
 import { Button } from './ui/button';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 
 type Props = {
   mode: AuthFormType;
 };
 
 function AuthSwitchLink({ mode }: Props) {
-  const isRegister = mode === 'register';
-
-  const text = isRegister
-    ? 'Already have an account?'
-    : 'Don’t have an account?';
-
-  const linkText = isRegister ? 'Sign In' : 'Sign Up';
-  const href = isRegister ? '/login' : '/register';
+  const t = useTranslations(`auth.${mode}.switch`);
+  const href = mode === 'register' ? '/login' : '/register';
 
   return (
     <Typography variant="body">
-      {text}{' '}
+      {t('textLink')}{' '}
       <Link href={href} passHref>
         <Button variant="link" className="px-0 text-[var(--primary)]" asChild>
-          {linkText}
+          {t('linkForm')}
         </Button>
       </Link>
     </Typography>

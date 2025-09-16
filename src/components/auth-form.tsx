@@ -13,6 +13,7 @@ import type {
   RegisterValues,
 } from '@/lib/auth/auth-handlers';
 import AuthField from './auth-field';
+import { useTranslations } from 'next-intl';
 
 type AuthFormProps = {
   mode: AuthFormType;
@@ -20,6 +21,8 @@ type AuthFormProps = {
 
 function AuthForm({ mode }: AuthFormProps) {
   const router = useRouter();
+  const t = useTranslations('buttons');
+
   const schema = mode === 'register' ? registerSchema : loginSchema;
   const validationMode = mode === 'register' ? 'onChange' : 'onSubmit';
 
@@ -41,17 +44,15 @@ function AuthForm({ mode }: AuthFormProps) {
       >
         <AuthField
           name="email"
-          label="Email"
           type="email"
-          placeholder="Enter your email"
           control={form.control}
+          mode={mode}
         />
         <AuthField
           name="password"
-          label="Password"
           type="password"
-          placeholder="Enter your password"
           control={form.control}
+          mode={mode}
         />
         <div>
           <Button
@@ -59,7 +60,7 @@ function AuthForm({ mode }: AuthFormProps) {
             variant="default"
             disabled={!form.formState.isValid}
           >
-            {mode === 'register' ? 'Sign Up' : 'Sign In'}
+            {mode === 'register' ? t('signUp') : t('signIn')}
           </Button>
         </div>
       </form>
