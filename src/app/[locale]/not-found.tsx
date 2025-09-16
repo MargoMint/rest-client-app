@@ -1,9 +1,14 @@
+'use client';
+
 import Typography from '@/components/typography';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { useTranslations } from 'next-intl';
 
 function NotFound() {
+  const t = useTranslations('notFoundPage');
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-5">
       <div className="flex items-center justify-center gap-5">
@@ -11,14 +16,14 @@ function NotFound() {
 
         <div className="flex flex-col gap-1 border-l-3 border-[var(--primary)] pl-5">
           <Typography variant="h2" className="text-[var(--primary)]">
-            404 Not Found
+            {t('title')}
           </Typography>
-          <Typography variant="body">Oops, there is no such page</Typography>
+          <Typography variant="body">{t('mainMessage')}</Typography>
         </div>
       </div>
 
       <Link href="/">
-        <Button variant="link">Back to home</Button>
+        <Button variant="link">{t('back')}</Button>
       </Link>
     </div>
   );

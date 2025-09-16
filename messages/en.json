@@ -1,0 +1,36 @@
+{
+  "homePage": {
+    "aboutProjectTitle": "About the project",
+    "aboutProjectDescr": "Our application is a lightweight REST client, inspired by tools like Postman. It allows users to send HTTP requests to any open RESTful API, view responses, and manage request history. The app supports multiple HTTP methods, request headers, request bodies, and generates corresponding code snippets in several programming languages. The project is built with Next.js, React, and TypeScript, styled with TailwindCSS and shadcn/ui, and follows modern development practices using ESLint, Prettier, Husky, and Jest for testing.",
+    "aboutCourceTitle": "About the course",
+    "aboutCourceDescr": "This project is part of the RS School ReactJS course, which teaches building real-world React apps with TypeScript, modern frameworks, testing, and best practices in front-end development."
+  },
+  "team": {
+    "teamTitle": "Our team",
+    "teamSubtitle": "Get to know us",
+    "teamMemberFirst": {
+      "name": "Marharyta Shyshkavets",
+      "bio": "Marharyta Shyshkavets is an aspiring frontend developer with a strong eye for detail and a passion for creating clean, responsive interfaces. Over the past year, she has been exploring web development, focusing on layout, styling, and building user-friendly designs. She enjoys working in collaborative environments, values open communication, and believes teamwork helps her bring out the best in her work."
+    },
+    "teamMemberSecond": {
+      "name": "Elena Pavlovich",
+      "bio": "Elena Pavlovich is an aspiring frontend developer with a keen eye for detail and a passion for building clean, responsive user interfaces. Over the past year, she has been diving into web development, focusing on layout, styling, and creating intuitive, user-friendly designs. She thrives in collaborative environments, values open communication, and believes that teamwork inspires her to achieve her best work."
+    },
+    "teamMemberThird": {
+      "name": "Yuliya Naletskaya",
+      "bio": "Yuliya Naletskaya is an aspiring frontend developer who recently transitioned into IT after completing a web design course in 2024 and a front-end development course at RS School in 2025. She is fascinated by the process of building modern web applications and intuitive user interfaces. Passionate about continuous learning, she embraces the fast-evolving nature of frontend development and enjoys applying new technologies to create up-to-date solutions."
+    }
+  },
+  "buttons": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up"
+  },
+  "form": {
+    "formTitle": "Welcome to REST Client"
+  },
+  "notFoundPage": {
+    "title": "404 Not Found",
+    "mainMessage": "Oops, there is no such page",
+    "back": "Back to home"
+  }
+}

@@ -1,20 +1,24 @@
+'use client';
+
 import Image from 'next/image';
-import { ABOUT_TEXTS } from '@/constants/about-texts';
 import AboutSection from '@/components/about-section';
+import { useTranslations } from 'next-intl';
 
 function Hero() {
+  const t = useTranslations('homePage');
+
   return (
     <div>
       <section>
         <div className="flex flex-col gap-10">
           <AboutSection
-            title={ABOUT_TEXTS.project.title}
-            body={ABOUT_TEXTS.project.body}
+            title={t('aboutProjectTitle')}
+            body={t('aboutProjectDescr')}
             variant="left"
           />
           <AboutSection
-            title={ABOUT_TEXTS.course.title}
-            body={ABOUT_TEXTS.course.body}
+            title={t('aboutCourceTitle')}
+            body={t('aboutCourceDescr')}
             variant="right"
           />
         </div>
