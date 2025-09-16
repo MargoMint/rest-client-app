@@ -61,5 +61,18 @@
         "linkForm": "Sign In"
       }
     }
+  },
+  "validation": {
+    "email": {
+      "invalid": "Invalid email format"
+    },
+    "password": {
+      "min": "Minimum 8 characters",
+      "uppercase": "Must contain at least 1 uppercase letter",
+      "digit": "Must contain at least 1 digit",
+      "special": "Must contain at least 1 special character",
+      "unicode": "Password must support Unicode",
+      "required": "Password is required"
+    }
   }
 }

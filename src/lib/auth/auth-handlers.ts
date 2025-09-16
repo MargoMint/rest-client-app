@@ -1,14 +1,10 @@
 import { createClient } from '@/utils/supabase/client';
-import { loginSchema, registerSchema } from '@/validation/auth-schemes';
+import { LoginValues, RegisterValues } from '@/validation/auth-schemes';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import z from 'zod';
 
 export type AuthFormType = 'register' | 'login';
-
-export type RegisterValues = z.infer<typeof registerSchema>;
-export type LoginValues = z.infer<typeof loginSchema>;
 
 export const submitAuth = async (
   mode: AuthFormType,

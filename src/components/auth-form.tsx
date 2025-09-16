@@ -5,13 +5,14 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchema, registerSchema } from '@/validation/auth-schemes';
-import { submitAuth } from '@/lib/auth/auth-handlers';
-import type {
-  AuthFormType,
-  LoginValues,
+import {
   RegisterValues,
-} from '@/lib/auth/auth-handlers';
+  LoginValues,
+  getRegisterSchema,
+  getLoginSchema,
+} from '@/validation/auth-schemes';
+import { submitAuth } from '@/lib/auth/auth-handlers';
+import type { AuthFormType } from '@/lib/auth/auth-handlers';
 import AuthField from './auth-field';
 import { useTranslations } from 'next-intl';
 
@@ -22,8 +23,10 @@ type AuthFormProps = {
 function AuthForm({ mode }: AuthFormProps) {
   const router = useRouter();
   const t = useTranslations('buttons');
+  const tSchema = useTranslations('validation');
 
-  const schema = mode === 'register' ? registerSchema : loginSchema;
+  const schema =
+    mode === 'register' ? getRegisterSchema(tSchema) : getLoginSchema(tSchema);
   const validationMode = mode === 'register' ? 'onChange' : 'onSubmit';
 
   const form = useForm<RegisterValues | LoginValues>({
