@@ -27,7 +27,7 @@ function WelcomeSection({ user }: WelcomeSectionProps) {
               {WELCOME_TEXTS.bodyUnauthenticated}
             </Typography>
             <div className="flex flex-col items-center gap-4">
-              <div className="flex w-full max-w-[50%] items-center justify-center gap-4 rounded-lg bg-[var(--primary)]">
+              <div className="flex w-full max-w-[45%] items-center justify-center gap-4 rounded-lg bg-[var(--primary)]">
                 <Link href="/signin">
                   <Button
                     variant="default"
@@ -64,9 +64,11 @@ function WelcomeSection({ user }: WelcomeSectionProps) {
               {WELCOME_TEXTS.body}
             </Typography>
             <div className="flex flex-col items-center gap-4">
-              <Tabs className="mt-4 max-w-[70%]">
+              <Tabs className="mt-4">
                 <TabsList>
-                  <TabsTrigger value="rest-client">REST Client</TabsTrigger>
+                  <Link href="/rest-client">
+                    <TabsTrigger value="rest-client">REST Client</TabsTrigger>
+                  </Link>
                   <TabsTrigger value="history">History</TabsTrigger>
                   <TabsTrigger value="variables">Variables</TabsTrigger>
                 </TabsList>
