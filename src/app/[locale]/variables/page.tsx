@@ -1,10 +1,15 @@
 import AppWrapper from '@/components/app-wrapper';
+import VariableList from '@/components/variables/variables-list';
 import { getCurrentUser } from '@/lib/auth/get-current-user';
 
 async function VariablesPage() {
   const user = await getCurrentUser();
 
-  return <AppWrapper user={user}>Variables</AppWrapper>;
+  return (
+    <AppWrapper user={user}>
+      <VariableList />
+    </AppWrapper>
+  );
 }
 
 export default VariablesPage;
