@@ -23,7 +23,8 @@
   },
   "buttons": {
     "signIn": "Sign In",
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "signOut": "Sign Out"
   },
   "notFoundPage": {
     "title": "404 Not Found",
@@ -70,8 +71,8 @@
       "login": "Login successful"
     },
     "error": {
-      "invalid_login": "Invalid email or password",
-      "user_already_registered": "User already exists",
+      "invalidLogin": "Invalid email or password",
+      "userAlreadyRegistered": "User already exists",
       "generic": "Something went wrong. Please try again"
     }
   },

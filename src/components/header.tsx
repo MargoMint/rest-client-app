@@ -9,6 +9,7 @@ import cn from '@/lib/utils';
 import { User } from '@supabase/supabase-js';
 import LanguageSwitcher from './language-switcher';
 import { useLogout } from '@/hooks/use-logout';
+import { useTranslations } from 'next-intl';
 
 type HeaderProps = {
   user: User | null;
@@ -18,6 +19,8 @@ function Header({ user }: HeaderProps) {
   const isAuthenticated = !!user;
   const isSticky = useStickyHeader();
   const logout = useLogout();
+
+  const tButton = useTranslations('buttons');
 
   return (
     <header
@@ -43,15 +46,15 @@ function Header({ user }: HeaderProps) {
           <div className="flex items-center gap-4">
             {isAuthenticated ? (
               <Button variant="default" onClick={logout}>
-                Sign Out
+                {tButton('signOut')}
               </Button>
             ) : (
               <>
                 <Link href="/login">
-                  <Button variant="default">Sign In</Button>
+                  <Button variant="default">{tButton('signIn')}</Button>
                 </Link>
                 <Link href="/register">
-                  <Button variant="default">Sign Up</Button>
+                  <Button variant="default">{tButton('signUp')}</Button>
                 </Link>
               </>
             )}
