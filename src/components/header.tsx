@@ -8,6 +8,7 @@ import useStickyHeader from '@/hooks/use-sticky-header';
 import cn from '@/lib/utils';
 import { User } from '@supabase/supabase-js';
 import LanguageSwitcher from './language-switcher';
+import { useLogout } from '@/hooks/use-logout';
 
 type HeaderProps = {
   user: User | null;
@@ -16,6 +17,8 @@ type HeaderProps = {
 function Header({ user }: HeaderProps) {
   const isAuthenticated = !!user;
   const isSticky = useStickyHeader();
+  const logout = useLogout();
+
   return (
     <header
       className={cn(
@@ -39,12 +42,12 @@ function Header({ user }: HeaderProps) {
           <LanguageSwitcher />
           <div className="flex items-center gap-4">
             {isAuthenticated ? (
-              <form action="/api/logout" method="POST">
-                <Button type="submit" variant="default">
-                  Sign Out
-                </Button>
-              </form>
+              // <form action="/api/logout" method="POST">
+              <Button variant="default" onClick={logout}>
+                Sign Out
+              </Button>
             ) : (
+              // </form>
               <>
                 <Link href="/login">
                   <Button variant="default">Sign In</Button>

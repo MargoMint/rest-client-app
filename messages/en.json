@@ -60,6 +60,10 @@
         "textLink": "Already have an account?",
         "linkForm": "Sign In"
       }
+    },
+    "logout": {
+      "success": "You have successfully logged out",
+      "error": "Logout failed"
     }
   },
   "validation": {

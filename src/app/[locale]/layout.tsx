@@ -4,6 +4,7 @@ import { PropsWithChildren } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { getMessages } from '@/i18n/messages';
+import { ToastContainer } from 'react-toastify';
 
 export const metadata: Metadata = {
   title: 'REST Client',
@@ -38,6 +39,14 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          pauseOnFocusLoss={false}
+          pauseOnHover={false}
+          closeOnClick
+          theme="colored"
+        />
       </body>
     </html>
   );
