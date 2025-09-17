@@ -17,6 +17,7 @@ export default function VariableList({ initialVariables = [] }: Props) {
     value: '',
     type: 'string',
     scope: 'global',
+    description: '',
   });
 
   const update = (i: number, patch: Partial<Variable>) =>

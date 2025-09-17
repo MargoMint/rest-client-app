@@ -3,15 +3,15 @@ import Typography from '../typography';
 const columHeaders = [
   'Name',
   'Value',
-  'Type',
-  'Scope',
+  // 'Type',
+  // 'Scope',
   'Description',
   'Actions',
 ];
 
 export function VariableHeader() {
   return (
-    <div className="text-muted-foreground grid grid-cols-5 gap-4 px-1 font-medium">
+    <div className="grid grid-cols-[repeat(3,1fr)_0.5fr] gap-4 border-b px-1 pb-2">
       {columHeaders.map((label) => (
         <Typography
           variant="body"
