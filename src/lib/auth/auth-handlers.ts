@@ -11,6 +11,7 @@ export const submitAuth = async (
   values: RegisterValues | LoginValues,
   form: UseFormReturn<RegisterValues | LoginValues>,
   router: AppRouterInstance,
+  tAuth: (key: string) => string,
 ) => {
   const supabase = createClient();
   const { email, password } = values;
@@ -22,10 +23,12 @@ export const submitAuth = async (
 
   if (error) {
     form.setError('email', { message: error.message });
-    toast.error(error.message);
+    toast.error(tAuth(`error.${error.code}`) ?? tAuth('error.generic'));
     return;
   }
 
-  toast.success(mode === 'register' ? 'Successful registration' : 'Login done');
+  toast.success(
+    tAuth(mode === 'register' ? 'success.register' : 'success.login'),
+  );
   router.push('/');
 };

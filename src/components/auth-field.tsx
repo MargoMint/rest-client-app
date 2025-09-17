@@ -9,8 +9,8 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Control } from 'react-hook-form';
-import { LoginValues, RegisterValues } from '@/lib/auth/auth-handlers';
 import { useTranslations } from 'next-intl';
+import { LoginValues, RegisterValues } from '@/validation/auth-schemes';
 
 type AuthValues = RegisterValues | LoginValues;
 

@@ -24,6 +24,7 @@ function AuthForm({ mode }: AuthFormProps) {
   const router = useRouter();
   const t = useTranslations('buttons');
   const tSchema = useTranslations('validation');
+  const tAuth = useTranslations('auth');
 
   const schema =
     mode === 'register' ? getRegisterSchema(tSchema) : getLoginSchema(tSchema);
@@ -36,7 +37,7 @@ function AuthForm({ mode }: AuthFormProps) {
   });
 
   const onSubmit = async (values: RegisterValues | LoginValues) => {
-    submitAuth(mode, values, form, router);
+    submitAuth(mode, values, form, router, tAuth);
   };
 
   return (

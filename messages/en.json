@@ -64,6 +64,15 @@
     "logout": {
       "success": "You have successfully logged out",
       "error": "Logout failed"
+    },
+    "success": {
+      "register": "Registration successful",
+      "login": "Login successful"
+    },
+    "error": {
+      "invalid_login": "Invalid email or password",
+      "user_already_registered": "User already exists",
+      "generic": "Something went wrong. Please try again"
     }
   },
   "validation": {

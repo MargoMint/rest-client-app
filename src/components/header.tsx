@@ -42,12 +42,10 @@ function Header({ user }: HeaderProps) {
           <LanguageSwitcher />
           <div className="flex items-center gap-4">
             {isAuthenticated ? (
-              // <form action="/api/logout" method="POST">
               <Button variant="default" onClick={logout}>
                 Sign Out
               </Button>
             ) : (
-              // </form>
               <>
                 <Link href="/login">
                   <Button variant="default">Sign In</Button>
