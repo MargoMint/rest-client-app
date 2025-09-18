@@ -1,48 +1,45 @@
 'use client';
 
 import { useState } from 'react';
-import { Variable } from '@/app/[locale]/variables/types';
 import { VariableHeader } from './variable-header';
 import { VariableRow } from './variable-row';
 import { VariableEditor } from './variable-editor';
+import { useVariableActions } from '@/hooks/use-variable-actions';
+import { toast } from 'react-toastify';
 
 type Props = {
-  initialVariables?: Variable[];
+  userId?: string;
 };
 
-export default function VariableList({ initialVariables = [] }: Props) {
-  const [variables, setVariables] = useState<Variable[]>(initialVariables);
-  const [newVariable, setNewVariable] = useState<Variable>({
+export default function VariableList({ userId }: Props) {
+  const { variables, add, update, remove } = useVariableActions(userId ?? '');
+  const [newVariable, setNewVariable] = useState({
     name: '',
     value: '',
-    type: 'string',
-    scope: 'global',
     description: '',
   });
 
-  const update = (i: number, patch: Partial<Variable>) =>
-    setVariables((prev) =>
-      prev.map((v, idx) => (idx === i ? { ...v, ...patch } : v)),
-    );
-
-  const remove = (i: number) =>
-    setVariables((prev) => prev.filter((_, idx) => idx !== i));
-
-  const add = () => {
-    if (!newVariable.name.trim()) return;
-    setVariables((prev) => [...prev, newVariable]);
-    setNewVariable({ name: '', value: '', type: 'string', scope: 'global' });
+  const handleAdd = () => {
+    const success = add(newVariable);
+    if (success) {
+      setNewVariable({
+        name: '',
+        value: '',
+        description: '',
+      });
+    } else {
+      toast.error('Variable name is already used');
+    }
   };
 
   return (
     <div className="space-y-2">
       <VariableHeader />
 
-      {variables.map((v, i) => (
+      {variables.map((v) => (
         <VariableRow
-          key={i}
+          key={v.name}
           variable={v}
-          index={i}
           update={update}
           remove={remove}
         />
@@ -50,7 +47,7 @@ export default function VariableList({ initialVariables = [] }: Props) {
       <VariableEditor
         variable={newVariable}
         setVariable={setNewVariable}
-        onAdd={add}
+        onAdd={handleAdd}
       />
     </div>
   );

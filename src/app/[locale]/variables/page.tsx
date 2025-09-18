@@ -7,7 +7,7 @@ async function VariablesPage() {
 
   return (
     <AppWrapper user={user}>
-      <VariableList />
+      <VariableList userId={user?.id} />
     </AppWrapper>
   );
 }

@@ -7,25 +7,25 @@ import { useState } from 'react';
 
 type Props = {
   variable: Variable;
-  index: number;
-  update: (i: number, patch: Partial<Variable>) => void;
-  remove: (i: number) => void;
+  update: (id: string, patch: Partial<Variable>) => void;
+  remove: (id: string) => void;
 };
 
-export function VariableRow({ variable, index, update, remove }: Props) {
+export function VariableRow({ variable, update, remove }: Props) {
   const [isEditing, setIsEditing] = useState(false);
+  // const { name, value, description } = variable;
 
   return (
     <div className="grid grid-cols-[repeat(3,1fr)_0.5fr] items-center gap-4">
       <Input
         value={variable.name}
-        onChange={(e) => update(index, { name: e.target.value })}
+        onChange={(e) => update(variable.name, { name: e.target.value })}
         className="font-semibold placeholder:font-normal"
         disabled={!isEditing}
       />
       <Input
-        value={String(variable.value)}
-        onChange={(e) => update(index, { value: e.target.value })}
+        value={variable.value}
+        onChange={(e) => update(variable.name, { value: e.target.value })}
         className="font-semibold placeholder:font-normal"
         disabled={!isEditing}
       />
@@ -41,7 +41,7 @@ export function VariableRow({ variable, index, update, remove }: Props) {
       /> */}
       <Input
         value={variable.description ?? ''}
-        onChange={(e) => update(index, { description: e.target.value })}
+        onChange={(e) => update(variable.name, { description: e.target.value })}
         placeholder="Description"
         className="font-semibold placeholder:font-normal"
         disabled={!isEditing}
@@ -64,7 +64,11 @@ export function VariableRow({ variable, index, update, remove }: Props) {
             <Image src="/edit.png" alt="edit" width={24} height={24} priority />
           </Button>
         )}
-        <Button variant="link" className="px-3" onClick={() => remove(index)}>
+        <Button
+          variant="link"
+          className="px-3"
+          onClick={() => remove(variable.name)}
+        >
           <Image
             src="/delete.png"
             alt="delete"

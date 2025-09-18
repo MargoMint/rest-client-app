@@ -25,22 +25,6 @@ export function VariableEditor({ variable, setVariable, onAdd }: Props) {
         placeholder="Value"
         className="font-semibold placeholder:font-normal"
       />
-      {/* <VariableSelect
-        value={variable.type}
-        onChange={(val) =>
-          setVariable({ ...variable, type: val as Variable['type'] })
-        }
-        options={['string', 'number', 'boolean']}
-        placeholder="Type"
-      />
-      <VariableSelect
-        value={variable.scope}
-        onChange={(val) =>
-          setVariable({ ...variable, scope: val as Variable['scope'] })
-        }
-        options={['global', 'session', 'request']}
-        placeholder="Scope"
-      /> */}
       <Input
         value={variable.description ?? ''}
         onChange={(e) =>
