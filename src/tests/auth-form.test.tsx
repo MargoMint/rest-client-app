@@ -1,8 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import AuthForm from '@/components/auth-form';
-import { NextIntlClientProvider } from 'next-intl';
-import messages from '../../messages/en.json';
+import { renderWithIntl } from './test-utils/render-with-intl';
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
@@ -30,21 +29,13 @@ jest.mock('@/utils/supabase/client', () => ({
 
 describe('AuthForm (register mode)', () => {
   test('renders email and password fields', () => {
-    render(
-      <NextIntlClientProvider locale="en" messages={messages}>
-        <AuthForm mode="register" />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<AuthForm mode="register" />);
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
   });
 
   test('shows validation errors on invalid input', async () => {
-    render(
-      <NextIntlClientProvider locale="en" messages={messages}>
-        <AuthForm mode="register" />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<AuthForm mode="register" />);
     await userEvent.type(screen.getByLabelText(/email/i), 'invalid-email');
     await userEvent.type(screen.getByLabelText(/password/i), 'short');
     await userEvent.click(screen.getByRole('button', { name: /sign up/i }));
@@ -58,11 +49,7 @@ describe('AuthForm (register mode)', () => {
   });
 
   test('submits form with valid input', async () => {
-    render(
-      <NextIntlClientProvider locale="en" messages={messages}>
-        <AuthForm mode="register" />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<AuthForm mode="register" />);
     await userEvent.type(screen.getByLabelText(/email/i), 'test@example.com');
     await userEvent.type(screen.getByLabelText(/password/i), 'Valid1@Password');
     await userEvent.click(screen.getByRole('button', { name: /sign up/i }));
@@ -74,21 +61,13 @@ describe('AuthForm (register mode)', () => {
 
 describe('AuthForm (login mode)', () => {
   test('renders email and password fields', () => {
-    render(
-      <NextIntlClientProvider locale="en" messages={messages}>
-        <AuthForm mode="login" />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<AuthForm mode="login" />);
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
   });
 
   test('submits form with valid input', async () => {
-    render(
-      <NextIntlClientProvider locale="en" messages={messages}>
-        <AuthForm mode="login" />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<AuthForm mode="login" />);
     await userEvent.type(screen.getByLabelText(/email/i), 'user@example.com');
     await userEvent.type(screen.getByLabelText(/password/i), 'any-password');
     await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
@@ -98,11 +77,7 @@ describe('AuthForm (login mode)', () => {
   });
 
   test('calls signInWithPassword with correct credentials', async () => {
-    render(
-      <NextIntlClientProvider locale="en" messages={messages}>
-        <AuthForm mode="login" />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<AuthForm mode="login" />);
     const email = 'user@example.com';
     const password = 'securePassword123';
 

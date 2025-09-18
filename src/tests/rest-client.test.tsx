@@ -1,6 +1,7 @@
 import RestClientLayout from '@/components/rest-client/rest-client-layout';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { renderWithIntl } from './test-utils/render-with-intl';
 
 const mockRouter = {
   push: jest.fn(),
@@ -30,7 +31,7 @@ describe('RestClientLayout', () => {
   });
 
   test('renders basic UI elements', () => {
-    render(<RestClientLayout />);
+    renderWithIntl(<RestClientLayout />);
 
     expect(screen.getByRole('button', { name: /send/i })).toBeInTheDocument();
     expect(
@@ -42,7 +43,7 @@ describe('RestClientLayout', () => {
   });
 
   test('allows typing in URL input', async () => {
-    render(<RestClientLayout />);
+    renderWithIntl(<RestClientLayout />);
     const input = screen.getByPlaceholderText(/enter request url/i);
 
     await userEvent.clear(input);
@@ -52,7 +53,7 @@ describe('RestClientLayout', () => {
   });
 
   test('allows selecting HTTP method', async () => {
-    render(<RestClientLayout />);
+    renderWithIntl(<RestClientLayout />);
     const combobox = screen.getByRole('combobox');
     await userEvent.click(combobox);
     const option = await screen.findByText('POST');
@@ -61,7 +62,7 @@ describe('RestClientLayout', () => {
   });
 
   test('shows "No response yet" before request', () => {
-    render(<RestClientLayout />);
+    renderWithIntl(<RestClientLayout />);
     expect(screen.getByText(/no response yet/i)).toBeInTheDocument();
   });
 
@@ -71,7 +72,7 @@ describe('RestClientLayout', () => {
       json: async () => ({ message: 'ok' }),
     });
 
-    render(<RestClientLayout />);
+    renderWithIntl(<RestClientLayout />);
     const input = screen.getByPlaceholderText(/enter request url/i);
     const sendButton = screen.getByRole('button', { name: /send/i });
 
