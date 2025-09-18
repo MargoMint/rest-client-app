@@ -1,6 +1,7 @@
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 interface HeaderRowProps {
   headerKey: string;
@@ -15,17 +16,19 @@ function HeaderRow({
   onChange,
   onDelete,
 }: HeaderRowProps) {
+  const t = useTranslations('rest-client');
+
   return (
     <div className="flex gap-3">
       <Input
         type="text"
-        placeholder="Header Key"
+        placeholder={t('headerKey')}
         value={headerKey}
         onChange={(e) => onChange(e.target.value, headerValue)}
       />
       <Input
         type="text"
-        placeholder="Header Value"
+        placeholder={t('headerValue')}
         value={headerValue}
         onChange={(e) => onChange(headerKey, e.target.value)}
       />

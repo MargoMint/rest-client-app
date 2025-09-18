@@ -1,6 +1,7 @@
 import CodeMirror from '@uiw/react-codemirror';
 import { json } from '@codemirror/lang-json';
 import { monokaiDimmed } from '@uiw/codemirror-theme-monokai-dimmed';
+import { useTranslations } from 'next-intl';
 
 interface BodyEditorProps {
   value: string;
@@ -8,13 +9,15 @@ interface BodyEditorProps {
 }
 
 function BodyEditor({ value, onChange }: BodyEditorProps) {
+  const t = useTranslations('rest-client');
+
   return (
     <div className="overflow-hidden rounded-md border">
       <CodeMirror
         value={value}
         height="300px"
         extensions={[json()]}
-        placeholder="Enter request body here (JSON or text)"
+        placeholder={t('enterBody')}
         onChange={(val) => onChange(val)}
         theme={monokaiDimmed}
       />

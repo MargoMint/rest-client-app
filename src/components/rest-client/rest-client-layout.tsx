@@ -12,6 +12,7 @@ import CodeGenerator from '@/components/rest-client/code-generator';
 import { useRouter, usePathname } from 'next/navigation';
 import sendRequest from '@/utils/send-request';
 import buildRestClientRoute from '@/utils/build-rest-client-route';
+import { useTranslations } from 'next-intl';
 
 function RestClientLayout() {
   const [method, setMethod] = useState('GET');
@@ -24,6 +25,8 @@ function RestClientLayout() {
   const [body, setBody] = useState<string>('');
   const router = useRouter();
   const pathname = usePathname();
+  const buttonTranslations = useTranslations('buttons');
+  const textTranslations = useTranslations('rest-client');
 
   const handleSend = async () => {
     try {
@@ -53,16 +56,16 @@ function RestClientLayout() {
           <MethodSelector value={method} onChange={setMethod} />
           <UrlInput value={url} onChange={setUrl} />
           <Button type="button" variant="default" onClick={handleSend}>
-            Send
+            {buttonTranslations('send')}
           </Button>
         </div>
         <Tabs defaultValue="headers-editor">
           <TabsList className="w-fit bg-transparent p-0">
             <TabsTrigger value="headers-editor" className="text-[var(--dark)]">
-              Header
+              {textTranslations('headers')}
             </TabsTrigger>
             <TabsTrigger value="body-editor" className="text-[var(--dark)]">
-              Body
+              {textTranslations('body')}
             </TabsTrigger>
           </TabsList>
           <TabsContent value="headers-editor">

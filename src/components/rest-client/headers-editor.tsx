@@ -2,6 +2,7 @@ import HeaderRow from './header-row';
 import { Button } from '../ui/button';
 import Image from 'next/image';
 import { addHeader, updateHeader, deleteHeader } from '@/utils/headers';
+import { useTranslations } from 'next-intl';
 
 interface HeadersEditorProps {
   value: Record<string, string>;
@@ -9,6 +10,8 @@ interface HeadersEditorProps {
 }
 
 function HeadersEditor({ value, onChange }: HeadersEditorProps) {
+  const t = useTranslations('rest-client');
+
   return (
     <div className="flex flex-col gap-4">
       {Object.entries(value).map(([key, val]) => (
@@ -30,7 +33,7 @@ function HeadersEditor({ value, onChange }: HeadersEditorProps) {
         asChild
       >
         <Image src="/add.png" alt="add" width={12} height={12} priority />
-        Add Header
+        {t('addHeader')}
       </Button>
     </div>
   );
