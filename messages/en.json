@@ -23,14 +23,70 @@
   },
   "buttons": {
     "signIn": "Sign In",
-    "signUp": "Sign Up"
-  },
-  "form": {
-    "formTitle": "Welcome to REST Client"
+    "signUp": "Sign Up",
+    "signOut": "Sign Out"
   },
   "notFoundPage": {
     "title": "404 Not Found",
     "mainMessage": "Oops, there is no such page",
     "back": "Back to home"
+  },
+  "auth": {
+    "login": {
+      "formTitle": "Welcome to REST Client",
+      "label": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "placeholder": {
+        "email": "Enter your email",
+        "password": "Enter your password"
+      },
+      "switch": {
+        "textLink": "Don’t have an account?",
+        "linkForm": "Sign Up"
+      }
+    },
+    "register": {
+      "formTitle": "Create your account",
+      "label": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "placeholder": {
+        "email": "Your email address",
+        "password": "Create a password"
+      },
+      "switch": {
+        "textLink": "Already have an account?",
+        "linkForm": "Sign In"
+      }
+    },
+    "logout": {
+      "success": "You have successfully logged out",
+      "error": "Logout failed"
+    },
+    "success": {
+      "register": "Registration successful",
+      "login": "Login successful"
+    },
+    "error": {
+      "invalidLogin": "Invalid email or password",
+      "userAlreadyRegistered": "User already exists",
+      "generic": "Something went wrong. Please try again"
+    }
+  },
+  "validation": {
+    "email": {
+      "invalid": "Invalid email format"
+    },
+    "password": {
+      "min": "Minimum 8 characters",
+      "uppercase": "Must contain at least 1 uppercase letter",
+      "digit": "Must contain at least 1 digit",
+      "special": "Must contain at least 1 special character",
+      "unicode": "Password must support Unicode",
+      "required": "Password is required"
+    }
   }
 }
