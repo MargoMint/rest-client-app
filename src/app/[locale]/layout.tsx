@@ -4,6 +4,7 @@ import { PropsWithChildren } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { getMessages } from '@/i18n/messages';
+import ToastWrapper from '@/components/ui/toast-wrapper';
 
 export const metadata: Metadata = {
   title: 'REST Client',
@@ -37,6 +38,7 @@ export default async function RootLayout({
       <body className="font-montserrat">
         <NextIntlClientProvider messages={messages}>
           {children}
+          <ToastWrapper />
         </NextIntlClientProvider>
       </body>
     </html>

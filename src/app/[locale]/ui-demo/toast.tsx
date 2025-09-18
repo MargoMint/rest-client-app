@@ -27,7 +27,6 @@ function Toast() {
       <Button onClick={showDefault} variant="default">
         Show Default
       </Button>
-
       <ToastContainer />
     </div>
   );
