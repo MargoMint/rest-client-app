@@ -11,7 +11,10 @@ export default function ToastWrapper() {
         autoClose={3000}
         newestOnTop
         closeButton={false}
-        toastStyle={{ background: 'rgba(0,0,0,0.5)', color: '#fff' }}
+        toastStyle={{
+          background: 'rgba(0,0,0,0.5)',
+          color: 'var(--white)',
+        }}
       />
     </div>
   );
