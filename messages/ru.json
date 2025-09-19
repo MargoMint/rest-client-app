@@ -113,13 +113,24 @@
     "headerKey": "Ключ заголовка",
     "headerValue": "Значение заголовка"
   },
-  "VariableList": {
+  "variableList": {
     "duplicateName": "Имя переменной уже используется"
   },
-  "VariableHeader": {
+  "variableHeader": {
     "name": "Имя",
     "value": "Значение",
     "description": "Описание",
     "actions": "Действия"
+  },
+  "tabsWrapper": {
+    "client": "REST Клиент",
+    "history": "История",
+    "variables": "Переменные"
+  },
+  "welcome": {
+    "title": "Добро пожаловать!",
+    "body": "Выберите, что хотите сделать сегодня:",
+    "titleUnauthenticated": "Добро пожаловать в Rest Client App!",
+    "bodyUnauthenticated": "Чтобы начать, войдите или создайте аккаунт."
   }
 }

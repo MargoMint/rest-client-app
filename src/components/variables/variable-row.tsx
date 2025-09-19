@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Variable } from '@/app/[locale]/variables/types';
 import Image from 'next/image';
 import { useState } from 'react';
-// import { VariableSelect } from './variable-select';
 
 type Props = {
   variable: Variable;
@@ -13,7 +12,6 @@ type Props = {
 
 export function VariableRow({ variable, update, remove }: Props) {
   const [isEditing, setIsEditing] = useState(false);
-  // const { name, value, description } = variable;
 
   return (
     <div className="grid grid-cols-[repeat(3,1fr)_0.5fr] items-center gap-4">
@@ -29,16 +27,6 @@ export function VariableRow({ variable, update, remove }: Props) {
         className="font-semibold placeholder:font-normal"
         disabled={!isEditing}
       />
-      {/* <VariableSelect
-        value={variable.type}
-        onChange={(val) => update(index, { type: val as Variable['type'] })}
-        options={['string', 'number', 'boolean']}
-      />
-      <VariableSelect
-        value={variable.scope}
-        onChange={(val) => update(index, { scope: val as Variable['scope'] })}
-        options={['global', 'session', 'request']}
-      /> */}
       <Input
         value={variable.description ?? ''}
         onChange={(e) => update(variable.name, { description: e.target.value })}

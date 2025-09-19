@@ -13,7 +13,7 @@ type Props = {
 };
 
 function VariableList({ userId }: Props) {
-  const t = useTranslations('VariableList');
+  const t = useTranslations('variableList');
   const { variables, add, update, remove } = useVariableActions(userId ?? '');
   const [newVariable, setNewVariable] = useState({
     name: '',

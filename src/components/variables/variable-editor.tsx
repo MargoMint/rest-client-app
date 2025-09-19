@@ -11,7 +11,7 @@ type Props = {
 };
 
 export function VariableEditor({ variable, setVariable, onAdd }: Props) {
-  const t = useTranslations('VariableHeader');
+  const t = useTranslations('variableHeader');
 
   return (
     <div className="grid grid-cols-[repeat(3,1fr)_0.5fr] gap-4">
