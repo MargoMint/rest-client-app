@@ -16,7 +16,17 @@ import Toast from './toast';
 import Typography from '@/components/typography';
 import { fetchWithErrors, FetchResult } from '@/lib/fetchWithErrors';
 
-type ApiResponse = { message: string } | Record<string, unknown>;
+interface SuccessResponse {
+  message: string;
+  data?: Record<string, unknown>;
+}
+
+interface ErrorResponse {
+  message: string;
+  errorCode?: string;
+}
+
+type ApiResponse = SuccessResponse | ErrorResponse;
 
 function UiDemoPage() {
   const [result, setResult] = useState<FetchResult<ApiResponse> | null>(null);

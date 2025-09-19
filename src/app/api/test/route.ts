@@ -19,7 +19,16 @@ export async function GET(req: NextRequest) {
   }
 
   if (mode === 'network') {
-    return NextResponse.redirect('http://localhost:1234');
+    const redirectUrl = process.env.NEXT_PUBLIC_REDIRECT_URL;
+
+    if (redirectUrl) {
+      return NextResponse.redirect(redirectUrl);
+    } else {
+      return NextResponse.json(
+        { message: 'Redirect URL is not defined' },
+        { status: HttpStatus.INTERNAL_SERVER_ERROR },
+      );
+    }
   }
 
   return NextResponse.json(
