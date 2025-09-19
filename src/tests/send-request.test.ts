@@ -2,6 +2,8 @@ import sendRequest from '@/utils/send-request';
 import { HttpStatus } from '@/constants/http-status';
 
 describe('sendRequest', () => {
+  const TEST_URL = 'https://test.com';
+
   beforeEach(() => {
     global.fetch = jest.fn();
   });
@@ -12,14 +14,9 @@ describe('sendRequest', () => {
       json: async () => ({ ok: true }),
     });
 
-    await sendRequest(
-      'https://test.com',
-      'GET',
-      { Accept: 'application/xml' },
-      '',
-    );
+    await sendRequest(TEST_URL, 'GET', { Accept: 'application/xml' }, '');
 
-    expect(fetch).toHaveBeenCalledWith('https://test.com', {
+    expect(fetch).toHaveBeenCalledWith(TEST_URL, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -34,9 +31,9 @@ describe('sendRequest', () => {
       json: async () => ({ message: 'ok' }),
     });
 
-    const result = await sendRequest('https://test.com', 'GET', {}, '');
+    const result = await sendRequest(TEST_URL, 'GET', {}, '');
 
-    expect(fetch).toHaveBeenCalledWith('https://test.com', {
+    expect(fetch).toHaveBeenCalledWith(TEST_URL, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -49,9 +46,9 @@ describe('sendRequest', () => {
       json: async () => ({ updated: true }),
     });
 
-    const result = await sendRequest('https://test.com', 'PUT', {}, '{"id":1}');
+    const result = await sendRequest(TEST_URL, 'PUT', {}, '{"id":1}');
 
-    expect(fetch).toHaveBeenCalledWith('https://test.com', {
+    expect(fetch).toHaveBeenCalledWith(TEST_URL, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: '{"id":1}',
