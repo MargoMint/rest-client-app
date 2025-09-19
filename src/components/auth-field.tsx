@@ -9,28 +9,32 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Control } from 'react-hook-form';
-import { LoginValues, RegisterValues } from '@/lib/auth/auth-handlers';
+import { useTranslations } from 'next-intl';
+import { LoginValues, RegisterValues } from '@/validation/auth-schemes';
 
 type AuthValues = RegisterValues | LoginValues;
 
 type Props = {
   name: keyof AuthValues;
-  label: string;
-  placeholder: string;
+
   type: 'email' | 'password';
   control: Control<AuthValues>;
+  mode: 'login' | 'register';
 };
 
-function AuthField({ name, label, placeholder, type, control }: Props) {
+function AuthField({ name, type, control, mode }: Props) {
+  const tLabel = useTranslations(`auth.${mode}.label`);
+  const tPlaceholder = useTranslations(`auth.${mode}.placeholder`);
+
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel>{tLabel(name)}</FormLabel>
           <FormControl>
-            <Input type={type} placeholder={placeholder} {...field} />
+            <Input type={type} placeholder={tPlaceholder(name)} {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>

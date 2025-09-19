@@ -1,20 +1,17 @@
 import { createClient } from '@/utils/supabase/client';
-import { loginSchema, registerSchema } from '@/validation/auth-schemes';
+import { LoginValues, RegisterValues } from '@/validation/auth-schemes';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import z from 'zod';
 
 export type AuthFormType = 'register' | 'login';
-
-export type RegisterValues = z.infer<typeof registerSchema>;
-export type LoginValues = z.infer<typeof loginSchema>;
 
 export const submitAuth = async (
   mode: AuthFormType,
   values: RegisterValues | LoginValues,
   form: UseFormReturn<RegisterValues | LoginValues>,
   router: AppRouterInstance,
+  tAuth: (key: string) => string,
 ) => {
   const supabase = createClient();
   const { email, password } = values;
@@ -26,10 +23,12 @@ export const submitAuth = async (
 
   if (error) {
     form.setError('email', { message: error.message });
-    toast.error(error.message);
+    toast.error(tAuth(`error.${error.code}`) ?? tAuth('error.generic'));
     return;
   }
 
-  toast.success(mode === 'register' ? 'Successful registration' : 'Login done');
+  toast.success(
+    tAuth(mode === 'register' ? 'success.register' : 'success.login'),
+  );
   router.push('/');
 };

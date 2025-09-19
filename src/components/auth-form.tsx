@@ -5,14 +5,16 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchema, registerSchema } from '@/validation/auth-schemes';
-import { submitAuth } from '@/lib/auth/auth-handlers';
-import type {
-  AuthFormType,
-  LoginValues,
+import {
   RegisterValues,
-} from '@/lib/auth/auth-handlers';
+  LoginValues,
+  getRegisterSchema,
+  getLoginSchema,
+} from '@/validation/auth-schemes';
+import { submitAuth } from '@/lib/auth/auth-handlers';
+import type { AuthFormType } from '@/lib/auth/auth-handlers';
 import AuthField from './auth-field';
+import { useTranslations } from 'next-intl';
 
 type AuthFormProps = {
   mode: AuthFormType;
@@ -20,7 +22,12 @@ type AuthFormProps = {
 
 function AuthForm({ mode }: AuthFormProps) {
   const router = useRouter();
-  const schema = mode === 'register' ? registerSchema : loginSchema;
+  const t = useTranslations('buttons');
+  const tSchema = useTranslations('validation');
+  const tAuth = useTranslations('auth');
+
+  const schema =
+    mode === 'register' ? getRegisterSchema(tSchema) : getLoginSchema(tSchema);
   const validationMode = mode === 'register' ? 'onChange' : 'onSubmit';
 
   const form = useForm<RegisterValues | LoginValues>({
@@ -30,7 +37,7 @@ function AuthForm({ mode }: AuthFormProps) {
   });
 
   const onSubmit = async (values: RegisterValues | LoginValues) => {
-    submitAuth(mode, values, form, router);
+    submitAuth(mode, values, form, router, tAuth);
   };
 
   return (
@@ -41,17 +48,15 @@ function AuthForm({ mode }: AuthFormProps) {
       >
         <AuthField
           name="email"
-          label="Email"
           type="email"
-          placeholder="Enter your email"
           control={form.control}
+          mode={mode}
         />
         <AuthField
           name="password"
-          label="Password"
           type="password"
-          placeholder="Enter your password"
           control={form.control}
+          mode={mode}
         />
         <div>
           <Button
@@ -59,7 +64,7 @@ function AuthForm({ mode }: AuthFormProps) {
             variant="default"
             disabled={!form.formState.isValid}
           >
-            {mode === 'register' ? 'Sign Up' : 'Sign In'}
+            {mode === 'register' ? t('signUp') : t('signIn')}
           </Button>
         </div>
       </form>

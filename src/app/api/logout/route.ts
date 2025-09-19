@@ -1,9 +1,8 @@
-import { HttpStatus } from '@/constants/http-status';
 import { createSupabaseServerClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
-import { type NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export async function POST(req: NextRequest) {
+export async function POST() {
   const supabase = await createSupabaseServerClient();
 
   const {
@@ -15,7 +14,6 @@ export async function POST(req: NextRequest) {
   }
 
   revalidatePath('/', 'layout');
-  return NextResponse.redirect(new URL('/login', req.url), {
-    status: HttpStatus.FOUND,
-  });
+
+  return NextResponse.json({ success: true });
 }
