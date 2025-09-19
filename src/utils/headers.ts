@@ -22,16 +22,18 @@ export function updateHeader(
   newValue: string,
 ): Record<string, string> {
   return Object.fromEntries(
-    Object.entries(headers).map(([k, v]) => [
-      k === oldKey ? newKey : k,
-      k === oldKey ? newValue : v,
+    Object.entries(headers).map(([headerKey, headerValue]) => [
+      headerKey === oldKey ? newKey : headerKey,
+      headerKey === oldKey ? newValue : headerValue,
     ]),
   );
 }
 
 export function deleteHeader(
   headers: Record<string, string>,
-  key: string,
+  keyToDelete: string,
 ): Record<string, string> {
-  return Object.fromEntries(Object.entries(headers).filter(([k]) => k !== key));
+  return Object.fromEntries(
+    Object.entries(headers).filter(([headerKey]) => headerKey !== keyToDelete),
+  );
 }
