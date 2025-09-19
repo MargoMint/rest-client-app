@@ -102,7 +102,7 @@
       "required": "Password is required"
     }
   },
-  "rest-client": {
+  "restClient": {
     "headers": "Header",
     "body": "Body",
     "enterUrl": "Enter request URL",

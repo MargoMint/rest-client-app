@@ -6,7 +6,7 @@ interface ResponseSectionProps {
   data: unknown;
 }
 function ResponseSection({ status, data }: ResponseSectionProps) {
-  const t = useTranslations('rest-client');
+  const t = useTranslations('restClient');
 
   return (
     <div className="flex flex-col gap-2">

@@ -16,7 +16,7 @@ function HeaderRow({
   onChange,
   onDelete,
 }: HeaderRowProps) {
-  const t = useTranslations('rest-client');
+  const t = useTranslations('restClient');
 
   return (
     <div className="flex gap-3">

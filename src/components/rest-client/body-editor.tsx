@@ -9,7 +9,7 @@ interface BodyEditorProps {
 }
 
 function BodyEditor({ value, onChange }: BodyEditorProps) {
-  const t = useTranslations('rest-client');
+  const t = useTranslations('restClient');
 
   return (
     <div className="overflow-hidden rounded-md border">

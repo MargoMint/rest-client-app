@@ -40,14 +40,6 @@ export default async function RootLayout({
           {children}
           <ToastWrapper />
         </NextIntlClientProvider>
-        <ToastContainer
-          position="top-right"
-          autoClose={2000}
-          pauseOnFocusLoss={false}
-          pauseOnHover={false}
-          closeOnClick
-          theme="colored"
-        />
       </body>
     </html>
   );

@@ -10,7 +10,7 @@ interface HeadersEditorProps {
 }
 
 function HeadersEditor({ value, onChange }: HeadersEditorProps) {
-  const t = useTranslations('rest-client');
+  const t = useTranslations('restClient');
 
   return (
     <div className="flex flex-col gap-4">

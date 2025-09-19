@@ -26,7 +26,7 @@ function RestClientLayout() {
   const router = useRouter();
   const pathname = usePathname();
   const buttonTranslations = useTranslations('buttons');
-  const textTranslations = useTranslations('rest-client');
+  const textTranslations = useTranslations('restClient');
 
   const handleSend = async () => {
     try {

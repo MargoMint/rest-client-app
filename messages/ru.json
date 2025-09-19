@@ -102,7 +102,7 @@
       "required": "Пароль обязателен"
     }
   },
-  "rest-client": {
+  "restClient": {
     "headers": "Заголовки запроса",
     "body": "Тело запроса",
     "enterUrl": "Введите URL запроса",

@@ -6,7 +6,7 @@ interface UrlInputProps {
   onChange: (url: string) => void;
 }
 function UrlInput({ value, onChange }: UrlInputProps) {
-  const t = useTranslations('rest-client');
+  const t = useTranslations('restClient');
 
   return (
     <Input
