@@ -6,12 +6,14 @@ import { VariableRow } from './variable-row';
 import { VariableEditor } from './variable-editor';
 import { useVariableActions } from '@/hooks/use-variable-actions';
 import { toast } from 'react-toastify';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   userId?: string;
 };
 
-export default function VariableList({ userId }: Props) {
+function VariableList({ userId }: Props) {
+  const t = useTranslations('VariableList');
   const { variables, add, update, remove } = useVariableActions(userId ?? '');
   const [newVariable, setNewVariable] = useState({
     name: '',
@@ -28,7 +30,7 @@ export default function VariableList({ userId }: Props) {
         description: '',
       });
     } else {
-      toast.error('Variable name is already used');
+      toast.error(t('duplicateName'));
     }
   };
 
@@ -52,3 +54,5 @@ export default function VariableList({ userId }: Props) {
     </div>
   );
 }
+
+export default VariableList;

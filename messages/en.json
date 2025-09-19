@@ -112,5 +112,14 @@
     "addHeader": "Add Header",
     "headerKey": "Header Key",
     "headerValue": "Header Value"
+  },
+  "VariableList": {
+    "duplicateName": "Variable name is already used"
+  },
+  "VariableHeader": {
+    "name": "Name",
+    "value": "Value",
+    "description": "Description",
+    "actions": "Actions"
   }
 }

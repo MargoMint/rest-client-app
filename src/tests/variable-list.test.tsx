@@ -2,6 +2,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { useVariableActions } from '@/hooks/use-variable-actions';
 import VariableList from '@/components/variables/variables-list';
 import { ToastContainer } from 'react-toastify';
+import { NextIntlClientProvider } from 'next-intl';
+import messages from '../../messages/en.json';
 
 jest.mock('@/hooks/use-variable-actions');
 
@@ -37,14 +39,22 @@ function renderWithToast(component: React.ReactNode) {
 
 describe('VariableList', () => {
   test('renders existing variables', () => {
-    render(<VariableList userId="user-1" />);
+    render(
+      <NextIntlClientProvider locale="en" messages={messages}>
+        <VariableList userId="user-1" />
+      </NextIntlClientProvider>,
+    );
     expect(screen.getByDisplayValue('API_KEY')).toBeInTheDocument();
     expect(screen.getByDisplayValue('123')).toBeInTheDocument();
   });
 
   test('adds new variable and resets form', () => {
     mockAdd.mockReturnValue(true);
-    render(<VariableList userId="user-1" />);
+    render(
+      <NextIntlClientProvider locale="en" messages={messages}>
+        <VariableList userId="user-1" />
+      </NextIntlClientProvider>,
+    );
 
     fireEvent.change(screen.getByPlaceholderText(/name/i), {
       target: { value: 'NEW_VAR' },
@@ -67,7 +77,11 @@ describe('VariableList', () => {
 
   test('shows toast on duplicate variable name', async () => {
     mockAdd.mockReturnValue(false);
-    renderWithToast(<VariableList userId="user-1" />);
+    renderWithToast(
+      <NextIntlClientProvider locale="en" messages={messages}>
+        <VariableList userId="user-1" />
+      </NextIntlClientProvider>,
+    );
 
     fireEvent.change(screen.getByPlaceholderText(/name/i), {
       target: { value: 'API_KEY' },
@@ -82,7 +96,11 @@ describe('VariableList', () => {
   });
 
   test('removes variable on delete click', () => {
-    render(<VariableList userId="user-1" />);
+    render(
+      <NextIntlClientProvider locale="en" messages={messages}>
+        <VariableList userId="user-1" />
+      </NextIntlClientProvider>,
+    );
     fireEvent.click(screen.getByAltText('delete'));
     expect(mockRemove).toHaveBeenCalledWith('API_KEY');
   });

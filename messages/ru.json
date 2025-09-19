@@ -112,5 +112,14 @@
     "addHeader": "Добавить заголовок",
     "headerKey": "Ключ заголовка",
     "headerValue": "Значение заголовка"
+  },
+  "VariableList": {
+    "duplicateName": "Имя переменной уже используется"
+  },
+  "VariableHeader": {
+    "name": "Имя",
+    "value": "Значение",
+    "description": "Описание",
+    "actions": "Действия"
   }
 }

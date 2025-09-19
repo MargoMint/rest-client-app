@@ -1,8 +1,8 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Variable } from '@/app/[locale]/variables/types';
-// import { VariableSelect } from './variable-select';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   variable: Variable;
@@ -11,18 +11,20 @@ type Props = {
 };
 
 export function VariableEditor({ variable, setVariable, onAdd }: Props) {
+  const t = useTranslations('VariableHeader');
+
   return (
     <div className="grid grid-cols-[repeat(3,1fr)_0.5fr] gap-4">
       <Input
         value={variable.name}
         onChange={(e) => setVariable({ ...variable, name: e.target.value })}
-        placeholder="Name"
+        placeholder={t('name')}
         className="font-semibold placeholder:font-normal"
       />
       <Input
         value={variable.value}
         onChange={(e) => setVariable({ ...variable, value: e.target.value })}
-        placeholder="Value"
+        placeholder={t('value')}
         className="font-semibold placeholder:font-normal"
       />
       <Input
@@ -30,7 +32,7 @@ export function VariableEditor({ variable, setVariable, onAdd }: Props) {
         onChange={(e) =>
           setVariable({ ...variable, description: e.target.value })
         }
-        placeholder="Description"
+        placeholder={t('description')}
         className="font-semibold placeholder:font-normal"
       />
       <div>

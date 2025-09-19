@@ -25,9 +25,9 @@ export function VariableSelect({
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
-        {options.map((opt) => (
-          <SelectItem key={opt} value={opt}>
-            {opt.charAt(0).toUpperCase() + opt.slice(1)}
+        {options.map((option) => (
+          <SelectItem key={option} value={option}>
+            {option.charAt(0).toUpperCase() + option.slice(1)}
           </SelectItem>
         ))}
       </SelectContent>

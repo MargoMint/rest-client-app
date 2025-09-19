@@ -8,19 +8,14 @@ function getUserKey(userId: string) {
 }
 
 export function usePersistentVariables(userId: string) {
-  const [variables, setVariables] = useState<Variable[]>([]);
-
-  useEffect(() => {
-    if (!userId) return;
-
-    const raw = localStorage.getItem(getUserKey(userId));
+  const [variables, setVariables] = useState<Variable[]>(() => {
     try {
-      const parsed = raw ? JSON.parse(raw) : [];
-      setVariables(parsed);
+      const raw = localStorage.getItem(getUserKey(userId));
+      return raw ? JSON.parse(raw) : [];
     } catch {
-      setVariables([]);
+      return [];
     }
-  }, [userId]);
+  });
 
   useEffect(() => {
     if (!userId) return;

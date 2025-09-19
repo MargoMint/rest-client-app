@@ -1,5 +1,6 @@
 import AppWrapper from '@/components/app-wrapper';
-import VariableList from '@/components/variables/variables-list';
+import VariableListWrapper from '@/components/variables/variableList-wrapper';
+// import VariableList from '@/components/variables/variables-list';
 import { getCurrentUser } from '@/lib/auth/get-current-user';
 
 async function VariablesPage() {
@@ -7,7 +8,7 @@ async function VariablesPage() {
 
   return (
     <AppWrapper user={user}>
-      <VariableList userId={user?.id} />
+      {user && <VariableListWrapper userId={user.id} />}
     </AppWrapper>
   );
 }
