@@ -14,6 +14,8 @@ import sendRequest from '@/utils/send-request';
 import buildRestClientRoute from '@/utils/build-rest-client-route';
 import { useTranslations } from 'next-intl';
 
+export type Mode = 'json' | 'text';
+
 function RestClientLayout() {
   const [method, setMethod] = useState('GET');
   const [url, setUrl] = useState('');
@@ -23,6 +25,7 @@ function RestClientLayout() {
     'Content-Type': 'application/json',
   });
   const [body, setBody] = useState<string>('');
+  const [bodyMode, setBodyMode] = useState<Mode>('json');
   const router = useRouter();
   const pathname = usePathname();
   const buttonTranslations = useTranslations('buttons');
@@ -72,7 +75,12 @@ function RestClientLayout() {
             <HeadersEditor value={headers} onChange={setHeaders} />
           </TabsContent>
           <TabsContent value="body-editor">
-            <BodyEditor value={body} onChange={setBody} />
+            <BodyEditor
+              value={body}
+              onChange={setBody}
+              mode={bodyMode}
+              onModeChange={setBodyMode}
+            />
           </TabsContent>
         </Tabs>
       </div>

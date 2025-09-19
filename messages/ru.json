@@ -111,7 +111,9 @@
     "enterBody": "Введите тело запроса (JSON или текст)",
     "addHeader": "Добавить заголовок",
     "headerKey": "Ключ заголовка",
-    "headerValue": "Значение заголовка"
+    "headerValue": "Значение заголовка",
+    "selectText": "Текст",
+    "titleForText": "Отформатировать JSON"
   },
   "VariableList": {
     "duplicateName": "Имя переменной уже используется"
