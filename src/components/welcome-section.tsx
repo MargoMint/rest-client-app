@@ -1,8 +1,8 @@
 import Typography from '@/components/typography';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { WELCOME_TEXTS } from '@/constants/welcome-texts';
+import { Link } from '@/i18n/navigation';
 import { User } from '@supabase/supabase-js';
 
 interface WelcomeSectionProps {
@@ -28,7 +28,7 @@ function WelcomeSection({ user }: WelcomeSectionProps) {
             </Typography>
             <div className="flex flex-col items-center gap-4">
               <div className="flex w-full max-w-[45%] items-center justify-center gap-4 rounded-lg bg-[var(--primary)]">
-                <Link href="/signin">
+                <Link href="/login">
                   <Button
                     variant="default"
                     className="hover:text-white hover:underline"
