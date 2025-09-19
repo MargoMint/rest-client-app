@@ -31,6 +31,18 @@
     "mainMessage": "Oops, there is no such page",
     "back": "Back to home"
   },
+  "globalError": {
+    "title": "Oops! Something went wrong",
+    "mainMessage": "Unexpected application error",
+    "tryAgain": "Try again"
+  },
+  "toast": {
+    "success": "Success!",
+    "error": "Error!",
+    "info": "Some info...",
+    "warning": "Warning!",
+    "default": "Default notification"
+  },
   "auth": {
     "login": {
       "formTitle": "Welcome to REST Client",

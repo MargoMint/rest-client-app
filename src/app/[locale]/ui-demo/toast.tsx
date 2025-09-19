@@ -2,32 +2,34 @@
 
 import { ToastContainer, toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
+import { useTranslations } from 'next-intl';
 
 function Toast() {
-  const showSuccess = () => toast.success('Success!');
-  const showError = () => toast.error('Error!');
-  const showInfo = () => toast.info('Some info...');
-  const showWarning = () => toast.warn('Warning!');
-  const showDefault = () => toast('Default notification');
+  const t = useTranslations('toast');
+
+  const showSuccess = () => toast.success(t('success'));
+  const showError = () => toast.error(t('error'));
+  const showInfo = () => toast.info(t('info'));
+  const showWarning = () => toast.warn(t('warning'));
+  const showDefault = () => toast(t('default'));
 
   return (
     <div className="flex items-start gap-2">
       <Button onClick={showSuccess} variant="default">
-        Show Success
+        {t('success')}
       </Button>
       <Button onClick={showError} variant="default">
-        Show Error
+        {t('error')}
       </Button>
       <Button onClick={showInfo} variant="default">
-        Show Info
+        {t('info')}
       </Button>
       <Button onClick={showWarning} variant="default">
-        Show Warning
+        {t('warning')}
       </Button>
       <Button onClick={showDefault} variant="default">
-        Show Default
+        {t('default')}
       </Button>
-
       <ToastContainer />
     </div>
   );
