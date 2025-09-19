@@ -90,7 +90,7 @@ describe('RestClientLayout', () => {
 
     const encodedUrl = btoa('https://api.example.com').replace(/=+$/, '');
     expect(mockRouter.push).toHaveBeenCalledWith(
-      `/rest-client?method=GET&url=${encodedUrl}&body=&Content-Type=application%2Fjson`,
+      `/rest-client?method=GET&url=${encodedUrl}&body=&`,
     );
   });
 });

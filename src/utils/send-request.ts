@@ -9,7 +9,6 @@ async function sendRequest(
   const options: RequestInit = {
     method,
     headers: {
-      'Content-Type': 'application/json',
       ...headers,
     },
   };
@@ -19,7 +18,13 @@ async function sendRequest(
   }
 
   const response = await fetch(url, options);
-  const data = await response.json();
+
+  let data: unknown;
+  try {
+    data = await response.json();
+  } catch {
+    data = await response.text();
+  }
 
   return { status: response.status, data };
 }

@@ -1,39 +1,41 @@
 export type HttpHeaders = { [headerName: string]: string };
 
-export function withUpdatedHeaders(
-  headers: HttpHeaders,
-  updater: (draft: HttpHeaders) => void,
-): HttpHeaders {
-  const updated = { ...headers };
-  updater(updated);
-  return updated;
+export type HeaderItem = {
+  id: string;
+  key: string;
+  value: string;
+};
+
+function genId() {
+  return `header_${crypto.randomUUID()}`;
 }
 
-export function addHeader(headers: HttpHeaders): HttpHeaders {
-  return withUpdatedHeaders(headers, (draft) => {
-    draft[''] = '';
-  });
+export function addHeaderItem(items: HeaderItem[]): HeaderItem[] {
+  return [...items, { id: genId(), key: '', value: '' }];
 }
 
-export function updateHeader(
-  headers: HttpHeaders,
-  oldKey: string,
+export function updateHeaderItem(
+  items: HeaderItem[],
+  id: string,
   newKey: string,
   newValue: string,
-): HttpHeaders {
-  return Object.fromEntries(
-    Object.entries(headers).map(([headerKey, headerValue]) => [
-      headerKey === oldKey ? newKey : headerKey,
-      headerKey === oldKey ? newValue : headerValue,
-    ]),
+): HeaderItem[] {
+  return items.map((item) =>
+    item.id === id ? { ...item, key: newKey, value: newValue } : item,
   );
 }
 
-export function deleteHeader(
-  headers: HttpHeaders,
-  keyToDelete: string,
-): HttpHeaders {
+export function deleteHeaderItem(
+  items: HeaderItem[],
+  id: string,
+): HeaderItem[] {
+  return items.filter((item) => item.id !== id);
+}
+
+export function headersArrayToRecord(items: HeaderItem[]): HttpHeaders {
   return Object.fromEntries(
-    Object.entries(headers).filter(([headerKey]) => headerKey !== keyToDelete),
+    items
+      .filter((item) => item.key.trim() !== '')
+      .map((item) => [item.key.trim(), item.value]),
   );
 }
