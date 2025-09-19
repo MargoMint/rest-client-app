@@ -2,6 +2,7 @@ import RestClientLayout from '@/components/rest-client/rest-client-layout';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithIntl } from './test-utils/render-with-intl';
+import { HttpStatus } from '@/constants/http-status';
 
 const mockRouter = {
   push: jest.fn(),
@@ -68,7 +69,7 @@ describe('RestClientLayout', () => {
 
   test('updates response after successful fetch', async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
-      status: 200,
+      status: HttpStatus.OK,
       json: async () => ({ message: 'ok' }),
     });
 

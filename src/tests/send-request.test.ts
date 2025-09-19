@@ -1,4 +1,5 @@
 import sendRequest from '@/utils/send-request';
+import { HttpStatus } from '@/constants/http-status';
 
 describe('sendRequest', () => {
   beforeEach(() => {
@@ -7,7 +8,7 @@ describe('sendRequest', () => {
 
   test('should merge headers correctly', async () => {
     (fetch as jest.Mock).mockResolvedValueOnce({
-      status: 200,
+      status: HttpStatus.OK,
       json: async () => ({ ok: true }),
     });
 
@@ -29,7 +30,7 @@ describe('sendRequest', () => {
 
   test('should make a GET request without body', async () => {
     (fetch as jest.Mock).mockResolvedValueOnce({
-      status: 200,
+      status: HttpStatus.OK,
       json: async () => ({ message: 'ok' }),
     });
 
@@ -39,12 +40,12 @@ describe('sendRequest', () => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
-    expect(result).toEqual({ status: 200, data: { message: 'ok' } });
+    expect(result).toEqual({ status: HttpStatus.OK, data: { message: 'ok' } });
   });
 
   test('should include body for PUT request', async () => {
     (fetch as jest.Mock).mockResolvedValueOnce({
-      status: 200,
+      status: HttpStatus.OK,
       json: async () => ({ updated: true }),
     });
 
@@ -55,6 +56,6 @@ describe('sendRequest', () => {
       headers: { 'Content-Type': 'application/json' },
       body: '{"id":1}',
     });
-    expect(result).toEqual({ status: 200, data: { updated: true } });
+    expect(result).toEqual({ status: HttpStatus.OK, data: { updated: true } });
   });
 });
