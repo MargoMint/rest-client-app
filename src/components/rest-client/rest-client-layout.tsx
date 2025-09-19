@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import MethodSelector from '@/components/rest-client/method-selector';
@@ -8,39 +9,75 @@ import HeadersEditor from '@/components/rest-client/headers-editor';
 import BodyEditor from '@/components/rest-client/body-editor';
 import ResponseSection from '@/components/rest-client/response-section';
 import CodeGenerator from '@/components/rest-client/code-generator';
+import { useRouter, usePathname } from 'next/navigation';
+import sendRequest from '@/utils/send-request';
+import buildRestClientRoute from '@/utils/build-rest-client-route';
+import { useTranslations } from 'next-intl';
 
 function RestClientLayout() {
+  const [method, setMethod] = useState('GET');
+  const [url, setUrl] = useState('');
+  const [status, setStatus] = useState<number | null>(null);
+  const [responseData, setResponseData] = useState<unknown>(null);
+  const [headers, setHeaders] = useState<Record<string, string>>({
+    'Content-Type': 'application/json',
+  });
+  const [body, setBody] = useState<string>('');
+  const router = useRouter();
+  const pathname = usePathname();
+  const buttonTranslations = useTranslations('buttons');
+  const textTranslations = useTranslations('restClient');
+
+  const handleSend = async () => {
+    try {
+      const { status, data } = await sendRequest(url, method, headers, body);
+      setStatus(status);
+      setResponseData(data);
+      const newRoute = buildRestClientRoute(
+        pathname,
+        method,
+        url,
+        body,
+        headers,
+      );
+      router.push(newRoute);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setStatus(null);
+        setResponseData({ error: error.message });
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col gap-10 p-4">
       <div className="flex flex-col gap-2 rounded-md p-3 shadow-sm">
         <div className="flex items-center gap-2">
-          <MethodSelector />
-          <UrlInput />
-          <Button type="submit" variant="default">
-            Send
+          <MethodSelector value={method} onChange={setMethod} />
+          <UrlInput value={url} onChange={setUrl} />
+          <Button type="button" variant="default" onClick={handleSend}>
+            {buttonTranslations('send')}
           </Button>
         </div>
-
         <Tabs defaultValue="headers-editor">
           <TabsList className="w-fit bg-transparent p-0">
             <TabsTrigger value="headers-editor" className="text-[var(--dark)]">
-              Header
+              {textTranslations('headers')}
             </TabsTrigger>
             <TabsTrigger value="body-editor" className="text-[var(--dark)]">
-              Body
+              {textTranslations('body')}
             </TabsTrigger>
           </TabsList>
           <TabsContent value="headers-editor">
-            <HeadersEditor />
+            <HeadersEditor value={headers} onChange={setHeaders} />
           </TabsContent>
           <TabsContent value="body-editor">
-            <BodyEditor />
+            <BodyEditor value={body} onChange={setBody} />
           </TabsContent>
         </Tabs>
       </div>
-
       <div className="flex flex-col gap-2 rounded-md p-3 shadow-sm">
-        <ResponseSection />
+        <ResponseSection status={status} data={responseData} />
         <CodeGenerator />
       </div>
     </div>

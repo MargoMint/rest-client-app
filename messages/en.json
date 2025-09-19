@@ -24,7 +24,8 @@
   "buttons": {
     "signIn": "Sign In",
     "signUp": "Sign Up",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "send": "Send"
   },
   "notFoundPage": {
     "title": "404 Not Found",
@@ -100,5 +101,16 @@
       "unicode": "Password must support Unicode",
       "required": "Password is required"
     }
+  },
+  "restClient": {
+    "headers": "Header",
+    "body": "Body",
+    "enterUrl": "Enter request URL",
+    "responseStatus": "Response status",
+    "noResponse": "No response yet",
+    "enterBody": "Enter request body here (JSON or text)",
+    "addHeader": "Add Header",
+    "headerKey": "Header Key",
+    "headerValue": "Header Value"
   }
 }

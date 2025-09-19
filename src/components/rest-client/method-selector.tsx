@@ -7,10 +7,13 @@ import {
 } from '@/components/ui/select';
 
 const methods = ['GET', 'POST', 'PUT', 'DELETE'];
-
-function MethodSelector() {
+interface MethodSelectorProps {
+  value: string;
+  onChange: (method: string) => void;
+}
+function MethodSelector({ value, onChange }: MethodSelectorProps) {
   return (
-    <Select defaultValue="GET">
+    <Select defaultValue="GET" value={value} onValueChange={onChange}>
       <SelectTrigger className="w-[120px]">
         <SelectValue />
       </SelectTrigger>

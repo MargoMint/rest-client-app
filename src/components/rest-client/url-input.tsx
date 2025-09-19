@@ -1,7 +1,21 @@
 import { Input } from '../ui/input';
+import { useTranslations } from 'next-intl';
 
-function UrlInput() {
-  return <Input type="text" placeholder="Enter request URL" />;
+interface UrlInputProps {
+  value: string;
+  onChange: (url: string) => void;
+}
+function UrlInput({ value, onChange }: UrlInputProps) {
+  const t = useTranslations('restClient');
+
+  return (
+    <Input
+      type="text"
+      placeholder={t('enterUrl')}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+    />
+  );
 }
 
 export default UrlInput;

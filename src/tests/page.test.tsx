@@ -1,6 +1,7 @@
 import LoginPage from '@/app/[locale]/login/page';
 import Home from '@/app/[locale]/page';
 import RegisterPage from '@/app/[locale]/register/page';
+import RestClientPage from '@/app/[locale]/rest-client/page';
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import messages from '../../messages/en.json';
@@ -9,6 +10,11 @@ const mockUsePathname = jest.fn();
 
 jest.mock('@/lib/auth/get-current-user', () => ({
   getCurrentUser: jest.fn(() => Promise.resolve(null)),
+}));
+
+jest.mock('@/components/rest-client/rest-client-layout', () => ({
+  __esModule: true,
+  default: () => <div>RestClientLayout Mock</div>,
 }));
 
 jest.mock('next/navigation', () => ({
@@ -138,5 +144,17 @@ describe('RegisterPage', () => {
       (btn) => btn.getAttribute('type') === 'submit',
     );
     expect(submitButton).toBeInTheDocument();
+  });
+});
+
+describe('RestClientPage', () => {
+  test('renders AppWrapper with RestClientLayout inside', async () => {
+    const Component = await RestClientPage();
+    render(
+      <NextIntlClientProvider locale="en" messages={messages}>
+        {Component}
+      </NextIntlClientProvider>,
+    );
+    expect(screen.getByText(/RestClientLayout Mock/i)).toBeInTheDocument();
   });
 });
