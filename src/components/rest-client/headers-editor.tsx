@@ -3,10 +3,11 @@ import { Button } from '../ui/button';
 import Image from 'next/image';
 import { addHeader, updateHeader, deleteHeader } from '@/utils/headers';
 import { useTranslations } from 'next-intl';
+import { HttpHeaders } from '@/utils/headers';
 
 interface HeadersEditorProps {
-  value: Record<string, string>;
-  onChange: (headers: Record<string, string>) => void;
+  value: HttpHeaders;
+  onChange: (headers: HttpHeaders) => void;
 }
 
 function HeadersEditor({ value, onChange }: HeadersEditorProps) {

@@ -1,7 +1,9 @@
+import { HttpHeaders } from './headers';
+
 async function sendRequest(
   url: string,
   method: string,
-  headers: Record<string, string>,
+  headers: HttpHeaders,
   body: string,
 ) {
   const options: RequestInit = {
