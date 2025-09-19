@@ -3,6 +3,11 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithIntl } from './test-utils/render-with-intl';
 import { HttpStatus } from '@/constants/http-status';
+import BodyEditor from '@/components/rest-client/body-editor';
+
+Object.defineProperty(Range.prototype, 'getClientRects', {
+  value: () => [],
+});
 
 const mockRouter = {
   push: jest.fn(),
@@ -87,5 +92,85 @@ describe('RestClientLayout', () => {
     expect(mockRouter.push).toHaveBeenCalledWith(
       `/rest-client?method=GET&url=${encodedUrl}&body=&Content-Type=application%2Fjson`,
     );
+  });
+});
+
+describe('BodyEditor', () => {
+  const mockOnChange = jest.fn();
+  const mockOnModeChange = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('renders BodyEditor with initial mode and value', () => {
+    renderWithIntl(
+      <BodyEditor
+        value="test content"
+        onChange={mockOnChange}
+        mode="json"
+        onModeChange={mockOnModeChange}
+      />,
+    );
+
+    expect(screen.getByText('test content')).toBeInTheDocument();
+    expect(screen.getByText('JSON')).toBeInTheDocument();
+  });
+
+  test('switches between JSON and text modes', async () => {
+    renderWithIntl(
+      <BodyEditor
+        value=""
+        onChange={mockOnChange}
+        mode="json"
+        onModeChange={mockOnModeChange}
+      />,
+    );
+
+    const selectTrigger = screen.getByRole('combobox');
+    await userEvent.click(selectTrigger);
+
+    const textOption = screen.getByText('Text');
+    await userEvent.click(textOption);
+
+    expect(mockOnModeChange).toHaveBeenCalledWith('text');
+  });
+
+  test('prettifies JSON content when prettify button is clicked', async () => {
+    const uglyJson = '{"name":"user","age":100,"active":true}';
+    const prettyJson = `{
+  "name": "user",
+  "age": 100,
+  "active": true
+}`;
+
+    renderWithIntl(
+      <BodyEditor
+        value={uglyJson}
+        onChange={mockOnChange}
+        mode="json"
+        onModeChange={mockOnModeChange}
+      />,
+    );
+
+    const prettifyButton = screen.getByRole('button', { name: /code-format/i });
+    await userEvent.click(prettifyButton);
+
+    expect(mockOnChange).toHaveBeenCalledWith(prettyJson);
+  });
+
+  test('shows prettify button only in JSON mode', () => {
+    renderWithIntl(
+      <BodyEditor
+        value=""
+        onChange={mockOnChange}
+        mode="text"
+        onModeChange={mockOnModeChange}
+      />,
+    );
+
+    expect(
+      screen.queryByRole('button', { name: /code-format/i }),
+    ).not.toBeInTheDocument();
   });
 });
