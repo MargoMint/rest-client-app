@@ -26,7 +26,7 @@ function RestClientLayout() {
   const [url, setUrl] = useState('');
   const [status, setStatus] = useState<number | null>(null);
   const [responseData, setResponseData] = useState<unknown>(null);
-  const [headers, setHeaders] = useState<HeaderItem[]>(() => addHeaderItem([]));
+  const [headers, setHeaders] = useState<HeaderItem[]>(addHeaderItem([]));
   const [body, setBody] = useState<string>('');
   const [bodyMode, setBodyMode] = useState<Mode>('json');
   const router = useRouter();
