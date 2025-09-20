@@ -15,7 +15,7 @@ function WelcomeSection({ user }: WelcomeSectionProps) {
   const displayName = user?.user_metadata?.full_name || user?.email || 'Friend';
   const t = useTranslations('tabsWrapper');
   const tButton = useTranslations('buttons');
-  const tWel = useTranslations('welcome');
+  const tWelcome = useTranslations('welcome');
 
   return (
     <div className="flex h-[90vh] max-w-[1200px] justify-center">
@@ -26,10 +26,10 @@ function WelcomeSection({ user }: WelcomeSectionProps) {
               variant="h1"
               className="text-center text-[var(--primary)] capitalize"
             >
-              {tWel('titleUnauthenticated')}
+              {tWelcome('titleUnauthenticated')}
             </Typography>
             <Typography variant="body" className="text-center">
-              {tWel('bodyUnauthenticated')}
+              {tWelcome('bodyUnauthenticated')}
             </Typography>
             <div className="flex flex-col items-center gap-4">
               <div className="flex w-full max-w-[45%] items-center justify-center gap-4 rounded-lg bg-[var(--primary)]">
@@ -61,12 +61,12 @@ function WelcomeSection({ user }: WelcomeSectionProps) {
               variant="h1"
               className="text-center text-[var(--primary)]"
             >
-              {tWel('title')}
+              {tWelcome('title')}
               <br />
               {displayName}!
             </Typography>
             <Typography variant="body" className="text-center">
-              {tWel('body')}
+              {tWelcome('body')}
             </Typography>
             <div className="flex flex-col items-center gap-4">
               <Tabs className="mt-4">
