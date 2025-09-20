@@ -17,6 +17,10 @@ jest.mock('@/components/rest-client/rest-client-layout', () => ({
   default: () => <div>RestClientLayout Mock</div>,
 }));
 
+jest.mock('@/lib/auth/get-current-user', () => ({
+  getCurrentUser: async () => ({ id: 'test-user' }),
+}));
+
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
     push: jest.fn(),
