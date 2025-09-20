@@ -4,7 +4,7 @@ import { Link } from '@/i18n/navigation';
 import { Tabs, TabsList, TabsTrigger } from './ui/tabs';
 import { useTranslations } from 'next-intl';
 
-function TabsWrapper() {
+function TabsLinks() {
   const t = useTranslations('tabsWrapper');
 
   return (
@@ -25,4 +25,4 @@ function TabsWrapper() {
     </div>
   );
 }
-export default TabsWrapper;
+export default TabsLinks;
