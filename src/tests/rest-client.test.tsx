@@ -45,7 +45,8 @@ describe('RestClientLayout', () => {
     ).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: /header/i })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: /body/i })).toBeInTheDocument();
-    expect(screen.getByText(/response status/i)).toBeInTheDocument();
+
+    expect(screen.getByTestId('response-section')).toBeInTheDocument();
   });
 
   test('allows typing in URL input', async () => {
@@ -62,8 +63,10 @@ describe('RestClientLayout', () => {
     renderWithIntl(<RestClientLayout />);
     const combobox = screen.getByRole('combobox');
     await userEvent.click(combobox);
-    const option = await screen.findByText('POST');
-    await userEvent.click(option);
+
+    const postOption = await screen.findByText('POST');
+    await userEvent.click(postOption);
+
     expect(screen.getByText('POST')).toBeInTheDocument();
   });
 
@@ -74,6 +77,7 @@ describe('RestClientLayout', () => {
 
   test('updates response after successful fetch', async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
       status: HttpStatus.OK,
       json: async () => ({ message: 'ok' }),
     });
@@ -85,8 +89,9 @@ describe('RestClientLayout', () => {
     await userEvent.type(input, 'https://api.example.com');
     await userEvent.click(sendButton);
 
-    expect(await screen.findByText(/200/)).toBeInTheDocument();
-    expect(await screen.findByText(/ok/)).toBeInTheDocument();
+    const response = await screen.findByTestId('response-section');
+    expect(response).toHaveTextContent('200');
+    expect(response).toHaveTextContent('ok');
 
     const encodedUrl = btoa('https://api.example.com').replace(/=+$/, '');
     expect(mockRouter.push).toHaveBeenCalledWith(

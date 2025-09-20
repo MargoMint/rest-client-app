@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import MethodSelector from '@/components/rest-client/method-selector';
@@ -14,6 +15,7 @@ import { fetchWithErrors, FetchResult } from '@/lib/fetchWithErrors';
 import { HeaderItem, addHeaderItem } from '@/utils/headers';
 
 function RestClientLayout() {
+  const router = useRouter();
   const [method, setMethod] = useState('GET');
   const [url, setUrl] = useState('');
   const [result, setResult] = useState<FetchResult | null>(null);
@@ -29,6 +31,11 @@ function RestClientLayout() {
   const handleSend = async () => {
     const res: FetchResult = await fetchWithErrors(url, { method });
     setResult(res);
+
+    if (res.type === 'success') {
+      const encodedUrl = btoa(url).replace(/=+$/, '');
+      router.push(`/rest-client?method=${method}&url=${encodedUrl}&body=&`);
+    }
   };
 
   return (
