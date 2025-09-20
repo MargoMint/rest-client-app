@@ -9,7 +9,7 @@ async function RestClientPage() {
   return (
     <AppWrapper user={user}>
       <TabsLinks />
-      <RestClientLayout />
+      {user && <RestClientLayout userId={user.id} />}
     </AppWrapper>
   );
 }

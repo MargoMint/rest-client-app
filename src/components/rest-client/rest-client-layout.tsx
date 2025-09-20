@@ -13,8 +13,14 @@ import CodeGenerator from '@/components/rest-client/code-generator';
 import { useTranslations } from 'next-intl';
 import { fetchWithErrors, FetchResult } from '@/lib/fetchWithErrors';
 import { HeaderItem, addHeaderItem } from '@/utils/headers';
+import { usePersistentVariables } from '@/hooks/use-persistent-variables';
+import { resolveVariables } from '@/lib/variables.ts/resolve-variables';
 
-function RestClientLayout() {
+type Props = {
+  userId?: string;
+};
+
+function RestClientLayout({ userId }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const [method, setMethod] = useState('GET');
@@ -28,6 +34,9 @@ function RestClientLayout() {
 
   const buttonTranslations = useTranslations('buttons');
   const textTranslations = useTranslations('restClient');
+
+  const [variables] = usePersistentVariables(userId ?? '');
+  const resolvedUrl = resolveVariables(url, variables);
 
   const handleSend = async () => {
     const res: FetchResult = await fetchWithErrors(url, { method });
