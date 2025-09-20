@@ -1,9 +1,11 @@
+'use client';
+
 import Typography from '@/components/typography';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { WELCOME_TEXTS } from '@/constants/welcome-texts';
+import { Link } from '@/i18n/navigation';
 import { User } from '@supabase/supabase-js';
+import { useTranslations } from 'next-intl';
 
 interface WelcomeSectionProps {
   user: User | null;
@@ -11,6 +13,9 @@ interface WelcomeSectionProps {
 
 function WelcomeSection({ user }: WelcomeSectionProps) {
   const displayName = user?.user_metadata?.full_name || user?.email || 'Friend';
+  const t = useTranslations('tabsWrapper');
+  const tButton = useTranslations('buttons');
+  const tWelcome = useTranslations('welcome');
 
   return (
     <div className="flex h-[90vh] max-w-[1200px] justify-center">
@@ -21,19 +26,19 @@ function WelcomeSection({ user }: WelcomeSectionProps) {
               variant="h1"
               className="text-center text-[var(--primary)] capitalize"
             >
-              {WELCOME_TEXTS.titleUnauthenticated}
+              {tWelcome('titleUnauthenticated')}
             </Typography>
             <Typography variant="body" className="text-center">
-              {WELCOME_TEXTS.bodyUnauthenticated}
+              {tWelcome('bodyUnauthenticated')}
             </Typography>
             <div className="flex flex-col items-center gap-4">
               <div className="flex w-full max-w-[45%] items-center justify-center gap-4 rounded-lg bg-[var(--primary)]">
-                <Link href="/signin">
+                <Link href="/login">
                   <Button
                     variant="default"
                     className="hover:text-white hover:underline"
                   >
-                    Sign In
+                    {tButton('signIn')}
                   </Button>
                 </Link>
                 <Typography variant="body" className="text-center text-white">
@@ -44,7 +49,7 @@ function WelcomeSection({ user }: WelcomeSectionProps) {
                     variant="default"
                     className="hover:text-white hover:underline"
                   >
-                    Sign Up
+                    {tButton('signUp')}
                   </Button>
                 </Link>
               </div>
@@ -56,22 +61,32 @@ function WelcomeSection({ user }: WelcomeSectionProps) {
               variant="h1"
               className="text-center text-[var(--primary)]"
             >
-              {WELCOME_TEXTS.title}
+              {tWelcome('title')}
               <br />
               {displayName}!
             </Typography>
             <Typography variant="body" className="text-center">
-              {WELCOME_TEXTS.body}
+              {tWelcome('body')}
             </Typography>
             <div className="flex flex-col items-center gap-4">
               <Tabs className="mt-4">
-                <TabsList>
-                  <Link href="/rest-client">
-                    <TabsTrigger value="rest-client">REST Client</TabsTrigger>
-                  </Link>
-                  <TabsTrigger value="history">History</TabsTrigger>
-                  <TabsTrigger value="variables">Variables</TabsTrigger>
-                </TabsList>
+                <Tabs className="mt-4">
+                  <TabsList>
+                    <Link href="/rest-client">
+                      <TabsTrigger value="rest-client">
+                        {t('client')}
+                      </TabsTrigger>
+                    </Link>
+                    <Link href="/history">
+                      <TabsTrigger value="history">{t('history')}</TabsTrigger>
+                    </Link>
+                    <Link href="/variables">
+                      <TabsTrigger value="variables">
+                        {t('variables')}
+                      </TabsTrigger>
+                    </Link>
+                  </TabsList>
+                </Tabs>
                 <TabsContent value="rest-client">
                   <Typography variant="body">REST Client Content</Typography>
                 </TabsContent>
