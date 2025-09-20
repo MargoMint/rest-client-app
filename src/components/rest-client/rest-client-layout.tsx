@@ -56,7 +56,7 @@ function RestClientLayout({ userId }: Props) {
       <div className="flex flex-col gap-2 rounded-md p-3 shadow-sm">
         <div className="flex items-center gap-2">
           <MethodSelector value={method} onChange={setMethod} />
-          <UrlInput value={url} onChange={setUrl} />
+          <UrlInput value={url} onChange={setUrl} variables={variables} />
           <Button type="button" variant="default" onClick={handleSend}>
             {buttonTranslations('send')}
           </Button>
@@ -79,6 +79,7 @@ function RestClientLayout({ userId }: Props) {
               onChange={setBody}
               mode={bodyMode}
               onModeChange={setBodyMode}
+              variables={variables}
             />
           </TabsContent>
         </Tabs>
