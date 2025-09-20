@@ -13,16 +13,22 @@ import { useRouter, usePathname } from 'next/navigation';
 import sendRequest from '@/utils/send-request';
 import buildRestClientRoute from '@/utils/build-rest-client-route';
 import { useTranslations } from 'next-intl';
+import {
+  HeaderItem,
+  headersArrayToRecord,
+  addHeaderItem,
+} from '@/utils/headers';
+
+export type Mode = 'json' | 'text';
 
 function RestClientLayout() {
   const [method, setMethod] = useState('GET');
   const [url, setUrl] = useState('');
   const [status, setStatus] = useState<number | null>(null);
   const [responseData, setResponseData] = useState<unknown>(null);
-  const [headers, setHeaders] = useState<Record<string, string>>({
-    'Content-Type': 'application/json',
-  });
+  const [headers, setHeaders] = useState<HeaderItem[]>(addHeaderItem([]));
   const [body, setBody] = useState<string>('');
+  const [bodyMode, setBodyMode] = useState<Mode>('json');
   const router = useRouter();
   const pathname = usePathname();
   const buttonTranslations = useTranslations('buttons');
@@ -30,7 +36,13 @@ function RestClientLayout() {
 
   const handleSend = async () => {
     try {
-      const { status, data } = await sendRequest(url, method, headers, body);
+      const headersRecord = headersArrayToRecord(headers);
+      const { status, data } = await sendRequest(
+        url,
+        method,
+        headersRecord,
+        body,
+      );
       setStatus(status);
       setResponseData(data);
       const newRoute = buildRestClientRoute(
@@ -38,7 +50,7 @@ function RestClientLayout() {
         method,
         url,
         body,
-        headers,
+        headersRecord,
       );
       router.push(newRoute);
     } catch (error: unknown) {
@@ -72,7 +84,12 @@ function RestClientLayout() {
             <HeadersEditor value={headers} onChange={setHeaders} />
           </TabsContent>
           <TabsContent value="body-editor">
-            <BodyEditor value={body} onChange={setBody} />
+            <BodyEditor
+              value={body}
+              onChange={setBody}
+              mode={bodyMode}
+              onModeChange={setBodyMode}
+            />
           </TabsContent>
         </Tabs>
       </div>

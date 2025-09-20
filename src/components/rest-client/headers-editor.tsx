@@ -1,13 +1,17 @@
 import HeaderRow from './header-row';
 import { Button } from '../ui/button';
 import Image from 'next/image';
-import { addHeader, updateHeader, deleteHeader } from '@/utils/headers';
+import {
+  addHeaderItem,
+  updateHeaderItem,
+  deleteHeaderItem,
+  HeaderItem,
+} from '@/utils/headers';
 import { useTranslations } from 'next-intl';
-import { HttpHeaders } from '@/utils/headers';
 
 interface HeadersEditorProps {
-  value: HttpHeaders;
-  onChange: (headers: HttpHeaders) => void;
+  value: HeaderItem[];
+  onChange: (headers: HeaderItem[]) => void;
 }
 
 function HeadersEditor({ value, onChange }: HeadersEditorProps) {
@@ -15,26 +19,28 @@ function HeadersEditor({ value, onChange }: HeadersEditorProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      {Object.entries(value).map(([key, val]) => (
+      {value.map((item) => (
         <HeaderRow
-          key={key}
-          headerKey={key}
-          headerValue={val}
-          onChange={(newKey, newVal) =>
-            onChange(updateHeader(value, key, newKey, newVal))
+          key={item.id}
+          id={item.id}
+          headerKey={item.key}
+          headerValue={item.value}
+          onChange={(id, newKey, newVal) =>
+            onChange(updateHeaderItem(value, id, newKey, newVal))
           }
-          onDelete={() => onChange(deleteHeader(value, key))}
+          onDelete={() => onChange(deleteHeaderItem(value, item.id))}
         />
       ))}
       <Button
         variant="outline"
-        className="flex w-fit items-center gap-2 px-3"
         type="button"
-        onClick={() => onChange(addHeader(value))}
-        asChild
+        onClick={() => onChange(addHeaderItem(value))}
+        className="w-fit px-3"
       >
-        <Image src="/add.png" alt="add" width={12} height={12} priority />
-        {t('addHeader')}
+        <div className="flex items-center gap-2">
+          <Image src="/add.png" alt="add" width={12} height={12} priority />
+          {t('addHeader')}
+        </div>
       </Button>
     </div>
   );

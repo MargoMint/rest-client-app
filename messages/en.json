@@ -111,7 +111,9 @@
     "enterBody": "Enter request body here (JSON or text)",
     "addHeader": "Add Header",
     "headerKey": "Header Key",
-    "headerValue": "Header Value"
+    "headerValue": "Header Value",
+    "selectText": "Text",
+    "titleForText": "Format JSON"
   },
   "VariableList": {
     "duplicateName": "Variable name is already used"
