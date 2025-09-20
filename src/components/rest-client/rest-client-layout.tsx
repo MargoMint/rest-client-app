@@ -9,56 +9,26 @@ import HeadersEditor from '@/components/rest-client/headers-editor';
 import BodyEditor from '@/components/rest-client/body-editor';
 import ResponseSection from '@/components/rest-client/response-section';
 import CodeGenerator from '@/components/rest-client/code-generator';
-import { useRouter, usePathname } from 'next/navigation';
-import sendRequest from '@/utils/send-request';
-import buildRestClientRoute from '@/utils/build-rest-client-route';
 import { useTranslations } from 'next-intl';
-import {
-  HeaderItem,
-  headersArrayToRecord,
-  addHeaderItem,
-} from '@/utils/headers';
-
-export type Mode = 'json' | 'text';
+import { fetchWithErrors, FetchResult } from '@/lib/fetchWithErrors';
+import { HeaderItem, addHeaderItem } from '@/utils/headers';
 
 function RestClientLayout() {
   const [method, setMethod] = useState('GET');
   const [url, setUrl] = useState('');
-  const [status, setStatus] = useState<number | null>(null);
-  const [responseData, setResponseData] = useState<unknown>(null);
+  const [result, setResult] = useState<FetchResult | null>(null);
+
   const [headers, setHeaders] = useState<HeaderItem[]>(addHeaderItem([]));
+
   const [body, setBody] = useState<string>('');
-  const [bodyMode, setBodyMode] = useState<Mode>('json');
-  const router = useRouter();
-  const pathname = usePathname();
+  const [bodyMode, setBodyMode] = useState<'json' | 'text'>('json');
+
   const buttonTranslations = useTranslations('buttons');
   const textTranslations = useTranslations('restClient');
 
   const handleSend = async () => {
-    try {
-      const headersRecord = headersArrayToRecord(headers);
-      const { status, data } = await sendRequest(
-        url,
-        method,
-        headersRecord,
-        body,
-      );
-      setStatus(status);
-      setResponseData(data);
-      const newRoute = buildRestClientRoute(
-        pathname,
-        method,
-        url,
-        body,
-        headersRecord,
-      );
-      router.push(newRoute);
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setStatus(null);
-        setResponseData({ error: error.message });
-      }
-    }
+    const res: FetchResult = await fetchWithErrors(url, { method });
+    setResult(res);
   };
 
   return (
@@ -94,7 +64,7 @@ function RestClientLayout() {
         </Tabs>
       </div>
       <div className="flex flex-col gap-2 rounded-md p-3 shadow-sm">
-        <ResponseSection status={status} data={responseData} />
+        <ResponseSection result={result} />
         <CodeGenerator />
       </div>
     </div>

@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 
 export type SuccessResult<T = unknown> = {
   type: 'success';
+  status: number;
   data: T;
 };
 
@@ -39,8 +40,12 @@ export async function fetchWithErrors<T = unknown>(
       };
     }
 
-    const data: T = await res.json();
-    return { type: 'success', data };
+    const data: T = await res.json().catch(() => ({}));
+    return {
+      type: 'success',
+      status: res.status,
+      data,
+    };
   } catch (err) {
     if (err instanceof Error) {
       toast.error(`Network or CORS error: ${err.message}`);
