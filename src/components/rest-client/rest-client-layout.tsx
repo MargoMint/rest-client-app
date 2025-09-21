@@ -13,8 +13,8 @@ import CodeGenerator from '@/components/rest-client/code-generator';
 import { useTranslations } from 'next-intl';
 import { fetchWithErrors, FetchResult } from '@/lib/fetchWithErrors';
 import { HeaderItem, addHeaderItem } from '@/utils/headers';
-import { usePersistentVariables } from '@/hooks/use-persistent-variables';
 import { resolveVariables } from '@/lib/variables.ts/resolve-variables';
+import { usePersistentVariables } from '@/hooks/use-persistent-variables';
 
 type Props = {
   userId?: string;
@@ -36,10 +36,22 @@ function RestClientLayout({ userId }: Props) {
   const textTranslations = useTranslations('restClient');
 
   const [variables] = usePersistentVariables(userId ?? '');
-  const resolvedUrl = resolveVariables(url, variables);
 
   const handleSend = async () => {
-    const res: FetchResult = await fetchWithErrors(url, { method });
+    const resolvedUrl = resolveVariables(url, variables);
+    const resolvedHeaders = Object.fromEntries(
+      headers
+        .filter((h) => h.key.trim() !== '')
+        .map(({ key, value }) => [key, resolveVariables(value, variables)]),
+    );
+    const resolvedBody = resolveVariables(body, variables);
+
+    const res: FetchResult = await fetchWithErrors(resolvedUrl, {
+      method,
+      headers: resolvedHeaders,
+      body: resolvedBody,
+    });
+
     setResult(res);
 
     if (res.type === 'success') {
@@ -71,7 +83,11 @@ function RestClientLayout({ userId }: Props) {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="headers-editor">
-            <HeadersEditor value={headers} onChange={setHeaders} />
+            <HeadersEditor
+              value={headers}
+              onChange={setHeaders}
+              variables={variables}
+            />
           </TabsContent>
           <TabsContent value="body-editor">
             <BodyEditor

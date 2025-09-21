@@ -8,13 +8,15 @@ import {
   HeaderItem,
 } from '@/utils/headers';
 import { useTranslations } from 'next-intl';
+import { Variable } from '@/app/[locale]/variables/types';
 
 interface HeadersEditorProps {
   value: HeaderItem[];
   onChange: (headers: HeaderItem[]) => void;
+  variables: Variable[];
 }
 
-function HeadersEditor({ value, onChange }: HeadersEditorProps) {
+function HeadersEditor({ value, onChange, variables }: HeadersEditorProps) {
   const t = useTranslations('restClient');
 
   return (
@@ -29,6 +31,7 @@ function HeadersEditor({ value, onChange }: HeadersEditorProps) {
             onChange(updateHeaderItem(value, id, newKey, newVal))
           }
           onDelete={() => onChange(deleteHeaderItem(value, item.id))}
+          variables={variables}
         />
       ))}
       <Button
