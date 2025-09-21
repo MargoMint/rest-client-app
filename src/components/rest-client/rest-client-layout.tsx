@@ -16,6 +16,8 @@ import { HeaderItem, addHeaderItem } from '@/utils/headers';
 import { resolveVariables } from '@/lib/variables.ts/resolve-variables';
 import { usePersistentVariables } from '@/hooks/use-persistent-variables';
 
+export type Mode = 'json' | 'text';
+
 type Props = {
   userId?: string;
 };
