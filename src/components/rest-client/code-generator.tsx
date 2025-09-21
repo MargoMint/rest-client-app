@@ -89,27 +89,24 @@ function CodeGenerator({ url, method, headers, body, variables }: Props) {
 
   return (
     <div className="mt-4 rounded border p-3">
-      <Typography variant="caption">TODO: Code Generator</Typography>;
-      <h3 className="mb-2 font-semibold">Generated code</h3>
+      <Typography variant="caption">Code Generator</Typography>;
       <LanguageCodeSelector
         languages={languages}
         language={language}
-        variant={variant}
         onLanguageChange={(langKey) => {
           const lang = languages.find((l) => l.key === langKey);
           if (lang) {
             setLanguage(lang.key);
-            setVariant(lang.variants[0].key);
+            setVariant(lang.variants[0]?.key ?? '');
           }
         }}
-        onVariantChange={setVariant}
       />
-      {error && <p className="text-red-500">{error}</p>}
-      {!error && (
-        <pre className="overflow-auto rounded bg-gray-100 p-3 text-sm">
-          {code}
-        </pre>
+      {error && (
+        <Typography variant="caption" className="text-[var(--primary)]">
+          {error}
+        </Typography>
       )}
+      {!error && <pre className="overflow-auto p-3 text-sm">{code}</pre>}
     </div>
   );
 }

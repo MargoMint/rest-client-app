@@ -113,7 +113,8 @@
     "headerKey": "Header Key",
     "headerValue": "Header Value",
     "selectText": "Text",
-    "titleForText": "Format JSON"
+    "titleForText": "Format JSON",
+    "networkError": "Network error. Please check your connection."
   },
   "variableList": {
     "duplicateName": "Variable name is already used"

@@ -47,12 +47,16 @@ function RestClientLayout({ userId }: Props) {
         .map(({ key, value }) => [key, resolveVariables(value, variables)]),
     );
     const resolvedBody = resolveVariables(body, variables);
-
-    const res: FetchResult = await fetchWithErrors(resolvedUrl, {
+    const fetchOptions: RequestInit = {
       method,
       headers: resolvedHeaders,
-      body: resolvedBody,
-    });
+    };
+
+    if (method !== 'GET' && method !== 'HEAD' && resolvedBody.trim() !== '') {
+      fetchOptions.body = resolvedBody;
+    }
+
+    const res: FetchResult = await fetchWithErrors(resolvedUrl, fetchOptions);
 
     setResult(res);
 
