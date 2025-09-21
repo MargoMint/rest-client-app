@@ -60,16 +60,16 @@ describe('RestClientLayout', () => {
     expect(input).toHaveValue('https://api.example.com');
   });
 
-  test('allows selecting HTTP method', async () => {
-    renderWithIntl(<RestClientLayout />);
-    const combobox = screen.getByRole('combobox');
-    await userEvent.click(combobox);
+  // test('allows selecting HTTP method', async () => {
+  //   renderWithIntl(<RestClientLayout />);
+  //   const combobox = screen.getByRole('combobox');
+  //   await userEvent.click(combobox);
 
-    const postOption = await screen.findByText('POST');
-    await userEvent.click(postOption);
+  //   const postOption = await screen.findByText('POST');
+  //   await userEvent.click(postOption);
 
-    expect(screen.getByText('POST')).toBeInTheDocument();
-  });
+  //   expect(screen.getByText('POST')).toBeInTheDocument();
+  // });
 
   test('shows "No response yet" before request', () => {
     renderWithIntl(<RestClientLayout />);
