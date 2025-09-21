@@ -5,6 +5,9 @@ import RestClientPage from '@/app/[locale]/rest-client/page';
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import messages from '../../messages/en.json';
+import { notFound } from 'next/navigation';
+import CatchAll from '@/app/[locale]/[...rest]/page';
+import NotFound from '@/app/[locale]/not-found';
 
 import VariablesPage from '@/app/[locale]/variables/page';
 
@@ -29,6 +32,7 @@ jest.mock('@/lib/auth/get-current-user', () => ({
 }));
 
 jest.mock('next/navigation', () => ({
+  notFound: jest.fn(),
   useRouter: () => ({
     push: jest.fn(),
     replace: jest.fn(),
@@ -179,5 +183,44 @@ describe('RestClientPage', () => {
       </NextIntlClientProvider>,
     );
     expect(screen.getByText(/VariableListWrapper Mock/i)).toBeInTheDocument();
+  });
+});
+
+describe('NotFound page', () => {
+  const renderPage = () =>
+    render(
+      <NextIntlClientProvider locale="en" messages={messages}>
+        <NotFound />
+      </NextIntlClientProvider>,
+    );
+
+  test('renders title and main message', () => {
+    renderPage();
+    expect(screen.getByText(messages.notFoundPage.title)).toBeInTheDocument();
+    expect(
+      screen.getByText(messages.notFoundPage.mainMessage),
+    ).toBeInTheDocument();
+  });
+
+  test('renders logo image', () => {
+    renderPage();
+    const logo = screen.getByAltText('logo');
+    expect(logo).toBeInTheDocument();
+    expect(logo.getAttribute('src')).toContain('logo.png');
+  });
+
+  test('renders back button with correct href', () => {
+    renderPage();
+    const backButton = screen.getByRole('link', {
+      name: messages.notFoundPage.back,
+    });
+    expect(backButton).toHaveAttribute('href', '/');
+  });
+});
+
+describe('CatchAll page', () => {
+  test('calls notFound when executed', () => {
+    CatchAll();
+    expect(notFound).toHaveBeenCalledTimes(1);
   });
 });

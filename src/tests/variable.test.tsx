@@ -4,6 +4,9 @@ import VariableList from '@/components/variables/variables-list';
 import { ToastContainer } from 'react-toastify';
 import { NextIntlClientProvider } from 'next-intl';
 import messages from '../../messages/en.json';
+import VariableListWrapper from '@/components/variables/variableList-wrapper';
+import { VariableRow } from '@/components/variables/variable-row';
+import { resolveVariables } from '@/lib/variables/resolve-variables';
 
 jest.mock('@/hooks/use-variable-actions');
 
@@ -103,5 +106,86 @@ describe('VariableList', () => {
     );
     fireEvent.click(screen.getByAltText('delete'));
     expect(mockRemove).toHaveBeenCalledWith('API_KEY');
+  });
+});
+
+describe('VariableListWrapper', () => {
+  test('renders VariableList inside wrapper', async () => {
+    render(
+      <NextIntlClientProvider locale="en" messages={messages}>
+        <VariableListWrapper userId="user-2" />
+      </NextIntlClientProvider>,
+    );
+
+    expect(await screen.findByPlaceholderText(/name/i)).toBeInTheDocument();
+  });
+});
+
+describe('VariableRow', () => {
+  const variable = {
+    name: 'TOKEN',
+    value: 'abc',
+    type: 'string',
+    scope: 'global',
+    description: 'desc',
+  };
+
+  test('toggles editing mode and updates fields', () => {
+    const mockUpdate = jest.fn();
+    const mockRemove = jest.fn();
+    render(
+      <VariableRow
+        variable={variable}
+        update={mockUpdate}
+        remove={mockRemove}
+      />,
+    );
+    expect(screen.getByDisplayValue('TOKEN')).toBeDisabled();
+
+    fireEvent.click(screen.getByAltText('edit'));
+    const nameInput = screen.getByDisplayValue('TOKEN');
+    expect(nameInput).not.toBeDisabled();
+
+    fireEvent.change(nameInput, { target: { value: 'NEW_TOKEN' } });
+    expect(mockUpdate).toHaveBeenCalledWith('TOKEN', { name: 'NEW_TOKEN' });
+
+    fireEvent.click(screen.getByAltText('save'));
+    expect(nameInput).toBeDisabled();
+
+    fireEvent.click(screen.getByAltText('delete'));
+    expect(mockRemove).toHaveBeenCalledWith('TOKEN');
+  });
+});
+
+describe('resolveVariables', () => {
+  const vars = [
+    {
+      name: 'NAME',
+      value: 'User',
+      type: 'string',
+      scope: 'global',
+      description: '',
+    },
+    {
+      name: 'AGE',
+      value: '100',
+      type: 'string',
+      scope: 'global',
+      description: '',
+    },
+  ];
+
+  test('replaces single variable', () => {
+    expect(resolveVariables('Hello {{NAME}}', vars)).toBe('Hello User');
+  });
+
+  test('replaces multiple variables', () => {
+    expect(resolveVariables('Hi {{NAME}}, age {{AGE}}', vars)).toBe(
+      'Hi User, age 100',
+    );
+  });
+
+  test('returns empty string for unknown variable', () => {
+    expect(resolveVariables('Unknown {{FOO}}', vars)).toBe('Unknown ');
   });
 });

@@ -5,6 +5,9 @@ import { renderWithIntl } from './test-utils/render-with-intl';
 import { HttpStatus } from '@/constants/http-status';
 import BodyEditor from '@/components/rest-client/body-editor';
 import { Variable } from '@/app/[locale]/variables/types';
+import UrlInput from '@/components/rest-client/url-input';
+import HeaderRow from '@/components/rest-client/header-row';
+import HeadersEditor from '@/components/rest-client/headers-editor';
 
 Object.defineProperty(Range.prototype, 'getClientRects', {
   value: () => [],
@@ -200,5 +203,137 @@ describe('BodyEditor', () => {
     expect(
       screen.queryByRole('button', { name: /code-format/i }),
     ).not.toBeInTheDocument();
+  });
+});
+
+describe('HeaderRow', () => {
+  const variables: Variable[] = [
+    { name: 'token', value: '123', description: '' },
+  ];
+  const onChange = jest.fn();
+  const onDelete = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('renders key and value inputs', () => {
+    renderWithIntl(
+      <HeaderRow
+        id="1"
+        headerKey="X-Test"
+        headerValue="value"
+        onChange={onChange}
+        onDelete={onDelete}
+        variables={variables}
+      />,
+    );
+
+    expect(screen.getByPlaceholderText('Header Key')).toHaveValue('X-Test');
+    expect(screen.getByPlaceholderText('Header Value')).toHaveValue('value');
+  });
+
+  test('calls onChange when key or value changes', async () => {
+    renderWithIntl(
+      <HeaderRow
+        id="1"
+        headerKey="X-Test"
+        headerValue="value"
+        onChange={onChange}
+        onDelete={onDelete}
+        variables={variables}
+      />,
+    );
+
+    const keyInput = screen.getByPlaceholderText('Header Key');
+    const valueInput = screen.getByPlaceholderText('Header Value');
+
+    await userEvent.type(keyInput, 'A');
+    await userEvent.type(valueInput, 'B');
+
+    expect(onChange).toHaveBeenCalled();
+  });
+
+  test('calls onDelete when delete button is clicked', async () => {
+    renderWithIntl(
+      <HeaderRow
+        id="1"
+        headerKey="X-Test"
+        headerValue="value"
+        onChange={onChange}
+        onDelete={onDelete}
+        variables={variables}
+      />,
+    );
+
+    await userEvent.click(screen.getByRole('button', { name: /delete/i }));
+    expect(onDelete).toHaveBeenCalled();
+  });
+});
+
+describe('HeadersEditor', () => {
+  const variables: Variable[] = [
+    { name: 'token', value: '123', description: '' },
+  ];
+  const headers = [{ id: '1', key: 'X-Test', value: 'value' }];
+  const onChange = jest.fn();
+
+  beforeEach(() => jest.clearAllMocks());
+
+  test('renders HeaderRow components and add button', () => {
+    renderWithIntl(
+      <HeadersEditor
+        value={headers}
+        onChange={onChange}
+        variables={variables}
+      />,
+    );
+    expect(screen.getByPlaceholderText('Header Key')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Header Value')).toBeInTheDocument();
+    expect(screen.getByText('Add Header')).toBeInTheDocument();
+  });
+
+  test('adds new header when add button clicked', async () => {
+    renderWithIntl(
+      <HeadersEditor
+        value={headers}
+        onChange={onChange}
+        variables={variables}
+      />,
+    );
+    const addButton = screen.getByText('Add Header');
+    await userEvent.click(addButton);
+    expect(onChange).toHaveBeenCalled();
+  });
+});
+
+describe('UrlInput', () => {
+  const variables: Variable[] = [
+    { name: 'token', value: '123', description: '' },
+  ];
+  const onChange = jest.fn();
+
+  beforeEach(() => jest.clearAllMocks());
+
+  test('renders input with initial value', () => {
+    renderWithIntl(
+      <UrlInput
+        value="https://api.com"
+        onChange={onChange}
+        variables={variables}
+      />,
+    );
+    expect(screen.getByPlaceholderText('Enter request URL')).toHaveValue(
+      'https://api.com',
+    );
+  });
+
+  test('calls onChange when typing', async () => {
+    renderWithIntl(
+      <UrlInput value="" onChange={onChange} variables={variables} />,
+    );
+    const input = screen.getByPlaceholderText('Enter request URL');
+    await userEvent.type(input, 'http://test.com');
+    expect(onChange).toHaveBeenCalled();
   });
 });
