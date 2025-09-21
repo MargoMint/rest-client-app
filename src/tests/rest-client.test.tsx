@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { renderWithIntl } from './test-utils/render-with-intl';
 import { HttpStatus } from '@/constants/http-status';
 import BodyEditor from '@/components/rest-client/body-editor';
+import { Variable } from '@/app/[locale]/variables/types';
 
 Object.defineProperty(Range.prototype, 'getClientRects', {
   value: () => [],
@@ -111,12 +112,17 @@ describe('BodyEditor', () => {
   });
 
   test('renders BodyEditor with initial mode and value', () => {
+    const mockVariables: Variable[] = [
+      { name: 'token', value: 'abc123', description: '' },
+      { name: 'userId', value: '42', description: '' },
+    ];
     renderWithIntl(
       <BodyEditor
         value="test content"
         onChange={mockOnChange}
         mode="json"
         onModeChange={mockOnModeChange}
+        variables={mockVariables}
       />,
     );
 
@@ -125,12 +131,17 @@ describe('BodyEditor', () => {
   });
 
   test('switches between JSON and text modes', async () => {
+    const mockVariables: Variable[] = [
+      { name: 'token', value: 'abc123', description: '' },
+      { name: 'userId', value: '42', description: '' },
+    ];
     renderWithIntl(
       <BodyEditor
         value=""
         onChange={mockOnChange}
         mode="json"
         onModeChange={mockOnModeChange}
+        variables={mockVariables}
       />,
     );
 
@@ -150,6 +161,10 @@ describe('BodyEditor', () => {
   "age": 100,
   "active": true
 }`;
+    const mockVariables: Variable[] = [
+      { name: 'token', value: 'abc123', description: '' },
+      { name: 'userId', value: '42', description: '' },
+    ];
 
     renderWithIntl(
       <BodyEditor
@@ -157,6 +172,7 @@ describe('BodyEditor', () => {
         onChange={mockOnChange}
         mode="json"
         onModeChange={mockOnModeChange}
+        variables={mockVariables}
       />,
     );
 
@@ -167,12 +183,17 @@ describe('BodyEditor', () => {
   });
 
   test('shows prettify button only in JSON mode', () => {
+    const mockVariables: Variable[] = [
+      { name: 'token', value: 'abc123', description: '' },
+      { name: 'userId', value: '42', description: '' },
+    ];
     renderWithIntl(
       <BodyEditor
         value=""
         onChange={mockOnChange}
         mode="text"
         onModeChange={mockOnModeChange}
+        variables={mockVariables}
       />,
     );
 
