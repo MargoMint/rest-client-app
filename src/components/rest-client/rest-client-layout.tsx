@@ -13,7 +13,7 @@ import CodeGenerator from '@/components/rest-client/code-generator';
 import { useTranslations } from 'next-intl';
 import { fetchWithErrors, FetchResult } from '@/lib/fetchWithErrors';
 import { HeaderItem, addHeaderItem } from '@/utils/headers';
-import { resolveVariables } from '@/lib/variables.ts/resolve-variables';
+import { resolveVariables } from '@/lib/variables/resolve-variables';
 import { usePersistentVariables } from '@/hooks/use-persistent-variables';
 
 export type Mode = 'json' | 'text';
@@ -41,12 +41,39 @@ function RestClientLayout({ userId }: Props) {
 
   const handleSend = async () => {
     const resolvedUrl = resolveVariables(url, variables);
-    const resolvedHeaders = Object.fromEntries(
+
+    const resolvedHeaders: Record<string, string> = Object.fromEntries(
       headers
         .filter((h) => h.key.trim() !== '')
         .map(({ key, value }) => [key, resolveVariables(value, variables)]),
     );
-    const resolvedBody = resolveVariables(body, variables);
+
+    if (bodyMode === 'json' && !resolvedHeaders['Content-Type']) {
+      resolvedHeaders['Content-Type'] = 'application/json';
+    }
+    if (bodyMode === 'text' && !resolvedHeaders['Content-Type']) {
+      resolvedHeaders['Content-Type'] = 'text/plain';
+    }
+
+    let resolvedBody: string | undefined;
+    if (method !== 'GET' && method !== 'HEAD') {
+      if (bodyMode === 'json') {
+        try {
+          const parsed = JSON.parse(resolveVariables(body, variables) || '{}');
+          resolvedBody = JSON.stringify(parsed);
+        } catch {
+          setResult({
+            type: 'http-error',
+            status: 400,
+            message: 'Invalid JSON body',
+            body: body,
+          });
+          return;
+        }
+      } else {
+        resolvedBody = resolveVariables(body, variables);
+      }
+    }
 
     const res: FetchResult = await fetchWithErrors(resolvedUrl, {
       method,
@@ -104,7 +131,13 @@ function RestClientLayout({ userId }: Props) {
       </div>
       <div className="flex flex-col gap-2 rounded-md p-3 shadow-sm">
         <ResponseSection result={result} />
-        <CodeGenerator />
+        <CodeGenerator
+          url={url}
+          method={method}
+          headers={headers}
+          body={body}
+          variables={variables}
+        />
       </div>
     </div>
   );

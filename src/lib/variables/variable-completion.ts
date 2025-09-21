@@ -13,7 +13,7 @@ export function variableCompletion(variables: Variable[]) {
           options: variables.map((variable) => ({
             label: `{{${variable.name}}}`,
             type: 'variable',
-            apply: `{{${variable.name}`,
+            apply: `{{${variable.name}}}`,
           })),
         };
       },

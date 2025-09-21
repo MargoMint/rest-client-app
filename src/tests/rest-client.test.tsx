@@ -62,8 +62,8 @@ describe('RestClientLayout', () => {
 
   test('allows selecting HTTP method', async () => {
     renderWithIntl(<RestClientLayout />);
-    const combobox = screen.getByRole('combobox');
-    await userEvent.click(combobox);
+    const [methodSelect] = screen.getAllByRole('combobox');
+    await userEvent.click(methodSelect);
 
     const postOption = await screen.findByText('POST');
     await userEvent.click(postOption);
