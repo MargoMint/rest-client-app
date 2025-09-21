@@ -46,7 +46,7 @@ export default function ResponseSection({ result }: ResponseSectionProps) {
         className="rounded bg-green-100 p-4 text-sm text-green-800"
         style={{ whiteSpace: 'pre-wrap' }}
       >
-        {String(renderData(r.data))}
+        {typeof r.data === 'string' ? r.data : JSON.stringify(r.data, null, 2)}
       </pre>
     ),
 
@@ -63,6 +63,7 @@ export default function ResponseSection({ result }: ResponseSectionProps) {
         </pre>
       </div>
     ),
+
     'network-error': (r) => (
       <Typography variant="body" className="text-yellow-600">
         {t('networkError')}: {r.message}

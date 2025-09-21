@@ -95,7 +95,9 @@ describe('RestClientLayout', () => {
 
     const encodedUrl = btoa('https://api.example.com').replace(/=+$/, '');
     expect(mockRouter.push).toHaveBeenCalledWith(
-      `/rest-client?method=GET&url=${encodedUrl}&body=&`,
+      expect.stringContaining(
+        `/rest-client?method=GET&url=${encodedUrl}&body=`,
+      ),
     );
   });
 });

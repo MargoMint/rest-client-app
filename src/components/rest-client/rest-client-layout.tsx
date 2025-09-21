@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from '@/i18n/navigation';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import MethodSelector from '@/components/rest-client/method-selector';
@@ -16,6 +16,7 @@ import { HeaderItem, addHeaderItem } from '@/utils/headers';
 
 function RestClientLayout() {
   const router = useRouter();
+  const pathname = usePathname();
   const [method, setMethod] = useState('GET');
   const [url, setUrl] = useState('');
   const [result, setResult] = useState<FetchResult | null>(null);
@@ -34,7 +35,10 @@ function RestClientLayout() {
 
     if (res.type === 'success') {
       const encodedUrl = btoa(url).replace(/=+$/, '');
-      router.push(`/rest-client?method=${method}&url=${encodedUrl}&body=&`);
+      router.push({
+        pathname,
+        query: { method, url: encodedUrl, body: '' },
+      });
     }
   };
 
