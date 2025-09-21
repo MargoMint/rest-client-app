@@ -130,7 +130,7 @@ describe('VariableRow', () => {
     description: 'desc',
   };
 
-  it('toggles editing mode and updates fields', () => {
+  test('toggles editing mode and updates fields', () => {
     const mockUpdate = jest.fn();
     const mockRemove = jest.fn();
     render(
@@ -175,17 +175,17 @@ describe('resolveVariables', () => {
     },
   ];
 
-  it('replaces single variable', () => {
+  test('replaces single variable', () => {
     expect(resolveVariables('Hello {{NAME}}', vars)).toBe('Hello User');
   });
 
-  it('replaces multiple variables', () => {
+  test('replaces multiple variables', () => {
     expect(resolveVariables('Hi {{NAME}}, age {{AGE}}', vars)).toBe(
       'Hi User, age 100',
     );
   });
 
-  it('returns empty string for unknown variable', () => {
+  test('returns empty string for unknown variable', () => {
     expect(resolveVariables('Unknown {{FOO}}', vars)).toBe('Unknown ');
   });
 });
