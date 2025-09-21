@@ -6,7 +6,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import messages from '../../messages/en.json';
 import VariableListWrapper from '@/components/variables/variableList-wrapper';
 import { VariableRow } from '@/components/variables/variable-row';
-import { resolveVariables } from '@/lib/variables.ts/resolve-variables';
+import { resolveVariables } from '@/lib/variables/resolve-variables';
 
 jest.mock('@/hooks/use-variable-actions');
 
