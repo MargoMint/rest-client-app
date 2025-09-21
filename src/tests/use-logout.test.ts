@@ -35,7 +35,7 @@ describe('useLogout', () => {
     (toast.error as jest.Mock).mockClear();
   });
 
-  it('successfully logout and redirect', async () => {
+  test('successfully logout and redirect', async () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({ ok: true } as Response),
     ) as jest.Mock;
@@ -50,7 +50,7 @@ describe('useLogout', () => {
     expect(pushMock).toHaveBeenCalledWith('/en/login');
   });
 
-  it('show an error if the API response is unsuccessful.', async () => {
+  test('show an error if the API response is unsuccessful.', async () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({ ok: false } as Response),
     ) as jest.Mock;
@@ -65,7 +65,7 @@ describe('useLogout', () => {
     expect(pushMock).not.toHaveBeenCalled();
   });
 
-  it('show an error when throwing an exception', async () => {
+  test('show an error when throwing an exception', async () => {
     global.fetch = jest.fn(() => Promise.reject('network error')) as jest.Mock;
     const { result } = renderHook(() => useLogout());
 
