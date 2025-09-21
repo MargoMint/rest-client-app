@@ -113,3 +113,56 @@ describe('createSupabaseServerClient', () => {
     await expect(createSupabaseServerClient()).resolves.toBe('safe-client');
   });
 });
+
+describe('updateSession - setAll cookies', () => {
+  test('should call request.cookies.set and response.cookies.set when setAll is called', async () => {
+    const mockRequest = createMockRequest();
+
+    const mockResponseCookiesSet = jest.fn();
+    (NextResponse.next as jest.Mock).mockReturnValue({
+      cookies: { set: mockResponseCookiesSet },
+    });
+
+    const mockSupabaseClient = {
+      auth: { getUser: jest.fn().mockResolvedValue({}) },
+    };
+    (createServerClient as jest.Mock).mockImplementation(
+      (_url, _key, { cookies }) => {
+        cookies.setAll([
+          { name: 'test', value: '123', options: { path: '/' } },
+        ]);
+        return mockSupabaseClient;
+      },
+    );
+
+    await updateSession(mockRequest);
+
+    expect(mockRequest.cookies.set).toHaveBeenCalledWith('test', '123');
+    expect(mockResponseCookiesSet).toHaveBeenCalledWith('test', '123', {
+      path: '/',
+    });
+  });
+
+  test('should handle multiple cookies in setAll', async () => {
+    const mockRequest = createMockRequest();
+
+    const mockSupabaseClient = {
+      auth: { getUser: jest.fn().mockResolvedValue({}) },
+    };
+    (createServerClient as jest.Mock).mockImplementation(
+      (_url, _key, { cookies }) => {
+        cookies.setAll([
+          { name: 'a', value: '1', options: {} },
+          { name: 'b', value: '2', options: {} },
+        ]);
+        return mockSupabaseClient;
+      },
+    );
+
+    await updateSession(mockRequest);
+
+    expect(mockRequest.cookies.set).toHaveBeenCalledTimes(2);
+    expect(mockRequest.cookies.set).toHaveBeenCalledWith('a', '1');
+    expect(mockRequest.cookies.set).toHaveBeenCalledWith('b', '2');
+  });
+});
