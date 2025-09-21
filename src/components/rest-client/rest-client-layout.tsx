@@ -41,22 +41,45 @@ function RestClientLayout({ userId }: Props) {
 
   const handleSend = async () => {
     const resolvedUrl = resolveVariables(url, variables);
-    const resolvedHeaders = Object.fromEntries(
+
+    const resolvedHeaders: Record<string, string> = Object.fromEntries(
       headers
         .filter((h) => h.key.trim() !== '')
         .map(({ key, value }) => [key, resolveVariables(value, variables)]),
     );
-    const resolvedBody = resolveVariables(body, variables);
-    const fetchOptions: RequestInit = {
-      method,
-      headers: resolvedHeaders,
-    };
 
-    if (method !== 'GET' && method !== 'HEAD' && resolvedBody.trim() !== '') {
-      fetchOptions.body = resolvedBody;
+    if (bodyMode === 'json' && !resolvedHeaders['Content-Type']) {
+      resolvedHeaders['Content-Type'] = 'application/json';
+    }
+    if (bodyMode === 'text' && !resolvedHeaders['Content-Type']) {
+      resolvedHeaders['Content-Type'] = 'text/plain';
     }
 
-    const res: FetchResult = await fetchWithErrors(resolvedUrl, fetchOptions);
+    let resolvedBody: string | undefined;
+    if (method !== 'GET' && method !== 'HEAD') {
+      if (bodyMode === 'json') {
+        try {
+          const parsed = JSON.parse(resolveVariables(body, variables) || '{}');
+          resolvedBody = JSON.stringify(parsed);
+        } catch {
+          setResult({
+            type: 'http-error',
+            status: 400,
+            message: 'Invalid JSON body',
+            body: body,
+          });
+          return;
+        }
+      } else {
+        resolvedBody = resolveVariables(body, variables);
+      }
+    }
+
+    const res: FetchResult = await fetchWithErrors(resolvedUrl, {
+      method,
+      headers: resolvedHeaders,
+      body: resolvedBody,
+    });
 
     setResult(res);
 
