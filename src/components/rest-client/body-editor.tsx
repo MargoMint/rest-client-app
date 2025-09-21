@@ -12,7 +12,7 @@ import {
 import { Button } from '../ui/button';
 import Image from 'next/image';
 import { Mode } from './rest-client-layout';
-import { variableCompletion } from '@/lib/variables.ts/variable-completion';
+import { variableCompletion } from '@/lib/variables/variable-completion';
 import { Variable } from '@/app/[locale]/variables/types';
 
 interface BodyEditorProps {

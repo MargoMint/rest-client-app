@@ -13,7 +13,7 @@ import CodeGenerator from '@/components/rest-client/code-generator';
 import { useTranslations } from 'next-intl';
 import { fetchWithErrors, FetchResult } from '@/lib/fetchWithErrors';
 import { HeaderItem, addHeaderItem } from '@/utils/headers';
-import { resolveVariables } from '@/lib/variables.ts/resolve-variables';
+import { resolveVariables } from '@/lib/variables/resolve-variables';
 import { usePersistentVariables } from '@/hooks/use-persistent-variables';
 
 export type Mode = 'json' | 'text';
@@ -104,7 +104,13 @@ function RestClientLayout({ userId }: Props) {
       </div>
       <div className="flex flex-col gap-2 rounded-md p-3 shadow-sm">
         <ResponseSection result={result} />
-        <CodeGenerator />
+        <CodeGenerator
+          url={url}
+          method={method}
+          headers={headers}
+          body={body}
+          variables={variables}
+        />
       </div>
     </div>
   );
