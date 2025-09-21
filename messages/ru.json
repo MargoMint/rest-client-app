@@ -84,8 +84,8 @@
       "login": "Вход выполнен успешно"
     },
     "error": {
-      "invalidLogin": "Неверный email или пароль",
-      "userAlreadyRegistered": "Пользователь уже существует",
+      "invalid_credentials": "Неверный email или пароль",
+      "user_already_registered": "Пользователь уже существует",
       "generic": "Что-то пошло не так. Пожалуйста, попробуйте ещё раз"
     }
   },

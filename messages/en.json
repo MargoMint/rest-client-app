@@ -84,8 +84,8 @@
       "login": "Login successful"
     },
     "error": {
-      "invalidLogin": "Invalid email or password",
-      "userAlreadyRegistered": "User already exists",
+      "invalid_credentials": "Invalid email or password",
+      "user_already_registered": "User already exists",
       "generic": "Something went wrong. Please try again"
     }
   },
