@@ -1,0 +1,108 @@
+'use client';
+
+import Typography from '@/components/typography';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Link } from '@/i18n/navigation';
+import { User } from '@supabase/supabase-js';
+import { useTranslations } from 'next-intl';
+
+interface WelcomeSectionProps {
+  user: User | null;
+}
+
+function WelcomeSection({ user }: WelcomeSectionProps) {
+  const displayName = user?.user_metadata?.full_name || user?.email || 'Friend';
+  const t = useTranslations('tabsWrapper');
+  const tButton = useTranslations('buttons');
+  const tWelcome = useTranslations('welcome');
+
+  return (
+    <div className="flex h-[90vh] max-w-[1200px] justify-center">
+      <div className="flex max-w-[650px] flex-col justify-center gap-4">
+        {!user ? (
+          <>
+            <Typography
+              variant="h1"
+              className="text-center text-[var(--primary)] capitalize"
+            >
+              {tWelcome('titleUnauthenticated')}
+            </Typography>
+            <Typography variant="body" className="text-center">
+              {tWelcome('bodyUnauthenticated')}
+            </Typography>
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex w-full max-w-[45%] items-center justify-center gap-4 rounded-lg bg-[var(--primary)]">
+                <Link href="/login">
+                  <Button
+                    variant="default"
+                    className="hover:text-white hover:underline"
+                  >
+                    {tButton('signIn')}
+                  </Button>
+                </Link>
+                <Typography variant="body" className="text-center text-white">
+                  /
+                </Typography>
+                <Link href="/register">
+                  <Button
+                    variant="default"
+                    className="hover:text-white hover:underline"
+                  >
+                    {tButton('signUp')}
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <Typography
+              variant="h1"
+              className="text-center text-[var(--primary)]"
+            >
+              {tWelcome('title')}
+              <br />
+              {displayName}!
+            </Typography>
+            <Typography variant="body" className="text-center">
+              {tWelcome('body')}
+            </Typography>
+            <div className="flex flex-col items-center gap-4">
+              <Tabs className="mt-4">
+                <Tabs className="mt-4">
+                  <TabsList>
+                    <Link href="/rest-client">
+                      <TabsTrigger value="rest-client">
+                        {t('client')}
+                      </TabsTrigger>
+                    </Link>
+                    <Link href="/history">
+                      <TabsTrigger value="history">{t('history')}</TabsTrigger>
+                    </Link>
+                    <Link href="/variables">
+                      <TabsTrigger value="variables">
+                        {t('variables')}
+                      </TabsTrigger>
+                    </Link>
+                  </TabsList>
+                </Tabs>
+                <TabsContent value="rest-client">
+                  <Typography variant="body">REST Client Content</Typography>
+                </TabsContent>
+                <TabsContent value="history">
+                  <Typography variant="body">History Content</Typography>
+                </TabsContent>
+                <TabsContent value="variables">
+                  <Typography variant="body">Variables Content</Typography>
+                </TabsContent>
+              </Tabs>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default WelcomeSection;

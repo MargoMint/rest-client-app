@@ -1,0 +1,139 @@
+{
+  "homePage": {
+    "aboutProjectTitle": "About the project",
+    "aboutProjectDescr": "Our application is a lightweight REST client, inspired by tools like Postman. It allows users to send HTTP requests to any open RESTful API, view responses, and manage request history. The app supports multiple HTTP methods, request headers, request bodies, and generates corresponding code snippets in several programming languages. The project is built with Next.js, React, and TypeScript, styled with TailwindCSS and shadcn/ui, and follows modern development practices using ESLint, Prettier, Husky, and Jest for testing.",
+    "aboutCourceTitle": "About the course",
+    "aboutCourceDescr": "This project is part of the RS School ReactJS course, which teaches building real-world React apps with TypeScript, modern frameworks, testing, and best practices in front-end development."
+  },
+  "team": {
+    "teamTitle": "Our team",
+    "teamSubtitle": "Get to know us",
+    "teamMemberFirst": {
+      "name": "Marharyta Shyshkavets",
+      "bio": "Marharyta Shyshkavets is an aspiring frontend developer with a strong eye for detail and a passion for creating clean, responsive interfaces. Over the past year, she has been exploring web development, focusing on layout, styling, and building user-friendly designs. She enjoys working in collaborative environments, values open communication, and believes teamwork helps her bring out the best in her work."
+    },
+    "teamMemberSecond": {
+      "name": "Elena Pavlovich",
+      "bio": "Elena Pavlovich is an aspiring frontend developer with a keen eye for detail and a passion for building clean, responsive user interfaces. Over the past year, she has been diving into web development, focusing on layout, styling, and creating intuitive, user-friendly designs. She thrives in collaborative environments, values open communication, and believes that teamwork inspires her to achieve her best work."
+    },
+    "teamMemberThird": {
+      "name": "Yuliya Naletskaya",
+      "bio": "Yuliya Naletskaya is an aspiring frontend developer who recently transitioned into IT after completing a web design course in 2024 and a front-end development course at RS School in 2025. She is fascinated by the process of building modern web applications and intuitive user interfaces. Passionate about continuous learning, she embraces the fast-evolving nature of frontend development and enjoys applying new technologies to create up-to-date solutions."
+    }
+  },
+  "buttons": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "send": "Send"
+  },
+  "notFoundPage": {
+    "title": "404 Not Found",
+    "mainMessage": "Oops, there is no such page",
+    "back": "Back to home"
+  },
+  "globalError": {
+    "title": "Oops! Something went wrong",
+    "mainMessage": "Unexpected application error",
+    "tryAgain": "Try again"
+  },
+  "toast": {
+    "success": "Success!",
+    "error": "Error!",
+    "info": "Some info...",
+    "warning": "Warning!",
+    "default": "Default notification"
+  },
+  "auth": {
+    "login": {
+      "formTitle": "Welcome to REST Client",
+      "label": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "placeholder": {
+        "email": "Enter your email",
+        "password": "Enter your password"
+      },
+      "switch": {
+        "textLink": "Don’t have an account?",
+        "linkForm": "Sign Up"
+      }
+    },
+    "register": {
+      "formTitle": "Create your account",
+      "label": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "placeholder": {
+        "email": "Your email address",
+        "password": "Create a password"
+      },
+      "switch": {
+        "textLink": "Already have an account?",
+        "linkForm": "Sign In"
+      }
+    },
+    "logout": {
+      "success": "You have successfully logged out",
+      "error": "Logout failed"
+    },
+    "success": {
+      "register": "Registration successful",
+      "login": "Login successful"
+    },
+    "error": {
+      "invalid_credentials": "Invalid email or password",
+      "user_already_registered": "User already exists",
+      "generic": "Something went wrong. Please try again"
+    }
+  },
+  "validation": {
+    "email": {
+      "invalid": "Invalid email format"
+    },
+    "password": {
+      "min": "Minimum 8 characters",
+      "uppercase": "Must contain at least 1 uppercase letter",
+      "digit": "Must contain at least 1 digit",
+      "special": "Must contain at least 1 special character",
+      "unicode": "Password must support Unicode",
+      "required": "Password is required"
+    }
+  },
+  "restClient": {
+    "headers": "Header",
+    "body": "Body",
+    "enterUrl": "Enter request URL",
+    "responseStatus": "Response status",
+    "noResponse": "No response yet",
+    "enterBody": "Enter request body here (JSON or text)",
+    "addHeader": "Add Header",
+    "headerKey": "Header Key",
+    "headerValue": "Header Value",
+    "selectText": "Text",
+    "titleForText": "Format JSON",
+    "networkError": "Network error. Please check your connection."
+  },
+  "variableList": {
+    "duplicateName": "Variable name is already used"
+  },
+  "variableHeader": {
+    "name": "Name",
+    "value": "Value",
+    "description": "Description",
+    "actions": "Actions"
+  },
+  "tabsWrapper": {
+    "client": "REST Client",
+    "history": "History",
+    "variables": "Variables"
+  },
+  "welcome": {
+    "title": "Welcome back",
+    "body": "Choose what you want to do today:",
+    "titleUnauthenticated": "Welcome to Rest Client App!",
+    "bodyUnauthenticated": "To get started, please sigh in or create an account."
+  }
+}
