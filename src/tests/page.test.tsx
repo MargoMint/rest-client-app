@@ -6,6 +6,8 @@ import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import messages from '../../messages/en.json';
 
+import VariablesPage from '@/app/[locale]/variables/page';
+
 const mockUsePathname = jest.fn();
 
 jest.mock('@/lib/auth/get-current-user', () => ({
@@ -15,6 +17,15 @@ jest.mock('@/lib/auth/get-current-user', () => ({
 jest.mock('@/components/rest-client/rest-client-layout', () => ({
   __esModule: true,
   default: () => <div>RestClientLayout Mock</div>,
+}));
+
+jest.mock('@/components/variables/variableList-wrapper', () => ({
+  __esModule: true,
+  default: () => <div>VariableListWrapper Mock</div>,
+}));
+
+jest.mock('@/lib/auth/get-current-user', () => ({
+  getCurrentUser: async () => ({ id: 'test-user' }),
 }));
 
 jest.mock('next/navigation', () => ({
@@ -156,5 +167,17 @@ describe('RestClientPage', () => {
       </NextIntlClientProvider>,
     );
     expect(screen.getByText(/RestClientLayout Mock/i)).toBeInTheDocument();
+  });
+});
+
+describe('RestClientPage', () => {
+  test('renders AppWrapper with VariableListWrapper inside', async () => {
+    const Component = await VariablesPage();
+    render(
+      <NextIntlClientProvider locale="en" messages={messages}>
+        {Component}
+      </NextIntlClientProvider>,
+    );
+    expect(screen.getByText(/VariableListWrapper Mock/i)).toBeInTheDocument();
   });
 });

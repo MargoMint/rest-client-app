@@ -12,15 +12,24 @@ import {
 import { Button } from '../ui/button';
 import Image from 'next/image';
 import { Mode } from './rest-client-layout';
+import { variableCompletion } from '@/lib/variables.ts/variable-completion';
+import { Variable } from '@/app/[locale]/variables/types';
 
 interface BodyEditorProps {
   value: string;
   onChange: (value: string) => void;
   mode: Mode;
   onModeChange: (mode: Mode) => void;
+  variables: Variable[];
 }
 
-function BodyEditor({ value, onChange, mode, onModeChange }: BodyEditorProps) {
+function BodyEditor({
+  value,
+  onChange,
+  mode,
+  onModeChange,
+  variables,
+}: BodyEditorProps) {
   const t = useTranslations('restClient');
 
   const handlePrettify = () => {
@@ -68,7 +77,9 @@ function BodyEditor({ value, onChange, mode, onModeChange }: BodyEditorProps) {
         <CodeMirror
           value={value}
           height="300px"
-          extensions={mode === 'json' ? [json()] : []}
+          extensions={
+            mode === 'json' ? [json(), variableCompletion(variables)] : []
+          }
           placeholder={t('enterBody')}
           onChange={(val) => onChange(val)}
           theme={monokaiDimmed}
