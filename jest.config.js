@@ -6,6 +6,8 @@ module.exports = {
     'src/**/*.{ts,tsx}',
     '!src/**/*.d.ts',
     '!src/app/api/logout/route.ts',
+    '!src/constants/http-status.ts',
+    '!src/app/[locale]/variables/types.ts',
   ],
   coveragePathIgnorePatterns: ['/node_modules/', 'src/main.tsx'],
   coverageDirectory: 'coverage',
